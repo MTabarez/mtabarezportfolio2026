@@ -189,9 +189,6 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
 
             {/* Stepper Navigation Controls */}
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-[var(--text-secondary)] mr-2 hidden sm:inline">
-                {t.workflow.scrollHint}
-              </span>
               <button
                 onClick={prevStep}
                 aria-label="Previous workflow stage"

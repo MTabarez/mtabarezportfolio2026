@@ -98,27 +98,15 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 mt-12 sm:mt-16">
         {/* Playful Top Callout with Interactive Jumping Character */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 sm:pb-16 border-b border-white/15">
-          <div className="space-y-4 flex-1 overflow-hidden">
+        <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 sm:pb-16 border-b border-white/15">
+          <div className="space-y-4 flex-1 relative z-10">
             <span className="text-xs font-bold uppercase tracking-widest text-[#D4FF32] block">
               {t.footer.kicker}
             </span>
 
-            {/* Title with "Let’s talk" -> "Let’s taaaaaaaaaaaaaaaaaaaaalk" sliding animation */}
-            <div className="relative overflow-hidden min-h-[90px] sm:min-h-[120px] flex items-center">
-              {isStretched ? (
-                <div className="flex whitespace-nowrap animate-[marquee_6s_linear_infinite] text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none text-[#D4FF32]">
-                  <span>
-                    {isLatam
-                      ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
-                      : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    {isLatam
-                      ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
-                      : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
-                  </span>
-                </div>
-              ) : (
+            {/* Title with "Let’s talk" */}
+            <div className="min-h-[90px] sm:min-h-[120px] flex items-center">
+              {!isStretched && (
                 <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white transition-all">
                   {t.footer.letsTalk}
                 </h2>
@@ -132,11 +120,31 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
             </p>
           </div>
 
-          {/* Interactive Character: Space or Click triggers real jump action + text stretching */}
-          <div className="flex flex-col items-center sm:items-end relative shrink-0">
+          {/* STREAMING TEXT:
+              Runs across the container with z-index (z-10) UNDERNEATH the character (macaco z-30),
+              shooting from the character's open mouth towards the left! */}
+          {isStretched && (
+            <div className="absolute inset-y-0 right-0 left-0 flex items-center pointer-events-none z-10 overflow-hidden">
+              <div className="flex whitespace-nowrap animate-[marquee_4.5s_linear_infinite] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none text-[#D4FF32] pr-12">
+                <span>
+                  {isLatam
+                    ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
+                    : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  {isLatam
+                    ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
+                    : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Interactive Character (MACACO):
+              Higher z-index (z-30), mouth stays open as long as isStretched is true! */}
+          <div className="flex flex-col items-center sm:items-end relative shrink-0 z-30">
             {/* Dynamic Speech Bubble */}
             {speechPhrase && (
-              <div className="absolute -top-12 sm:-top-14 right-4 sm:right-10 px-3.5 py-1.5 rounded-2xl bg-[#D4FF32] text-[#121212] font-black text-xs shadow-xl animate-in zoom-in-95 fade-in duration-200 whitespace-nowrap z-20">
+              <div className="absolute -top-12 sm:-top-14 right-4 sm:right-10 px-3.5 py-1.5 rounded-2xl bg-[#D4FF32] text-[#121212] font-black text-xs shadow-xl animate-in zoom-in-95 fade-in duration-200 whitespace-nowrap z-40">
                 {speechPhrase}
                 <div className="absolute top-full right-6 border-4 border-transparent border-t-[#D4FF32]" />
               </div>
@@ -164,21 +172,25 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
                   <span className="w-2.5 h-3 rounded-full bg-[#D4FF32] border border-black/10" />
                 </div>
 
-                {/* Animated Eyes */}
+                {/* Animated Eyes: wide open while mouth is open emitting text */}
                 <div className="flex items-center gap-3 mb-2">
-                  <span className={`w-2.5 h-2.5 rounded-full bg-black ${isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
-                  <span className={`w-2.5 h-2.5 rounded-full bg-black ${isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
+                  <span className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
+                  <span className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
                 </div>
 
-                {/* Mouth */}
+                {/* Mouth: KEEPS OPEN UNTIL THE TEXT FINISHES PASSING (while isStretched is true!) */}
                 <div
-                  className={`rounded-full bg-black transition-all ${
-                    isJumping ? 'w-5 h-3.5 rounded-b-full bg-rose-500' : 'w-4 h-1.5'
+                  className={`transition-all duration-200 ${
+                    isStretched
+                      ? 'w-7 h-7 rounded-full bg-rose-500 border-2 border-black animate-pulse shadow-inner'
+                      : isJumping
+                      ? 'w-5 h-3.5 rounded-b-full bg-rose-500'
+                      : 'w-4 h-1.5 rounded-full bg-black'
                   }`}
                 />
 
                 {/* Sparkle badge when jumping */}
-                {isJumping && (
+                {(isJumping || isStretched) && (
                   <span className="absolute -top-4 -right-3 text-[#D4FF32] text-sm font-black animate-spin">
                     ✦
                   </span>
@@ -197,7 +209,7 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
             </button>
 
             <span className="text-[11px] font-bold text-white/60 tracking-wider uppercase mt-1">
-              {t.footer.spacePrompt} ({jumpCount})
+              {t.footer.spacePrompt}
             </span>
           </div>
         </div>

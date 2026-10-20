@@ -65,16 +65,6 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
                 {t.hero.ctaContact}
               </button>
             </div>
-
-            {/* Disciplines */}
-            <div className="mt-10 pt-6 border-t border-[var(--card-border)] flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-[var(--text-secondary)]">
-              {t.hero.disciplines.map((disc, idx) => (
-                <React.Fragment key={disc}>
-                  <span>{disc}</span>
-                  {idx < t.hero.disciplines.length - 1 && <span aria-hidden="true">·</span>}
-                </React.Fragment>
-              ))}
-            </div>
           </div>
 
           {/* Right Column: Visual Collage with Floating Tactile Stickers (5 cols) */}

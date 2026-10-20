@@ -12,7 +12,7 @@ export const TRANSLATIONS = {
       latam: 'LATAM',
     },
     hero: {
-      status: 'Senior Web & UX/UI Designer · 9+ Years Experience',
+      status: 'Senior Web & UX/UI Designer',
       availability: 'Available for Select Projects',
       location: 'Chile / Remote',
       title: 'Digital experiences with clarity, character & purpose.',
@@ -21,7 +21,7 @@ export const TRANSLATIONS = {
       ctaContact: 'Get in Touch',
       disciplines: ['UX / UI Architecture', 'Design Systems', 'E-Commerce Themes', 'Product Interaction'],
       featuredBadge: 'Featured Case Study',
-      stickerText: 'Clarity Over Clutter',
+      stickerText: 'Human-Centered Craft',
     },
     words: {
       lead: 'Every meaningful project lives at the intersection of',
@@ -56,21 +56,21 @@ export const TRANSLATIONS = {
     },
     workflow: {
       title: 'End-to-End Design Workflow',
-      scrollHint: 'Scroll or click to advance stages',
+      scrollHint: '',
       outcome: 'Measured Outcome:',
       stepOf: 'of',
       preview: 'Artifact Preview',
     },
     floating: {
-      title: 'Crafting spatial presence beyond the standard grid.',
-      bio: 'Digital interfaces shouldn’t feel like flat templates locked in identical boxes. By introducing asymmetrical anchors, layered visual depth, and tactile contrast, every screen commands natural attention and tells an effortless story.',
-      cta: 'View Project Library',
-      badgeTitle: 'Design Architecture',
-      badgeDesc: 'Multi-tier e-commerce catalog featuring modular merchandising cards and fluid typography.',
+      title: 'Trusted by Global Brands & Product Teams',
+      bio: 'Collaborating with industry-leading retail, industrial, and educational organizations to build high-converting e-commerce experiences and scalable design systems.',
+      cta: 'Explore All Work',
+      badgeTitle: 'Production Reliability',
+      badgeDesc: 'Proven architectures serving enterprise users and international commerce.',
     },
     about: {
-      title: 'Crafting digital products that feel natural, clear, and human.',
-      bio: 'Over the past 9+ years, I’ve specialized in turning complex digital ecosystems into intuitive, high-converting interfaces. I collaborate with product teams and brands across the US, Europe, and Latin America to build design systems, e-commerce themes, and web platforms where usability and character reinforce each other.',
+      title: 'Designing interfaces where clarity, character & usability live in complete balance.',
+      bio: 'I build resilient design systems, custom e-commerce themes, and intuitive web platforms that transform complex digital ecosystems into effortless, human digital experiences.',
       coreFocusTitle: 'Core Focus',
       coreFocusDesc: 'Enterprise UX, Design Tokens, BigCommerce & NetSuite Themes, and High-Fidelity Interaction Prototyping.',
       languagesTitle: 'Languages',
@@ -83,7 +83,7 @@ export const TRANSLATIONS = {
     reviews: {
       title: 'What Stakeholders Say',
       sub: 'Direct endorsements from engineering leads, product managers, and agency founders across global e-commerce and UX projects.',
-      hoverHint: 'Hover cards to shift & reveal stars',
+      hoverHint: '',
     },
     callingCard: {
       takeCard: 'Toma una tarjeta',
@@ -97,7 +97,7 @@ export const TRANSLATIONS = {
     footer: {
       kicker: 'Still here?',
       letsTalk: 'Let’s talk.',
-      spacePrompt: 'Press [SPACE] or Click to jump & stretch text',
+      spacePrompt: 'Press [SPACE] or Click to jump',
       marquee: 'MARIANNE TABAREZ — SENIOR WEB & UX/UI DESIGNER — DESIGN SYSTEMS — E-COMMERCE THEMES — CHILE / REMOTE —',
       directContact: 'Direct Contact',
       profiles: 'Professional Profiles',
@@ -143,7 +143,7 @@ export const TRANSLATIONS = {
       latam: 'LATAM',
     },
     hero: {
-      status: 'Diseñadora Senior Web y UX/UI · 9+ Años de Experiencia',
+      status: 'Diseñadora Senior Web y UX/UI',
       availability: 'Disponible para Proyectos Selectos',
       location: 'Chile / Remoto',
       title: 'Experiencias digitales con claridad, carácter y propósito.',
@@ -152,7 +152,7 @@ export const TRANSLATIONS = {
       ctaContact: 'Iniciar Contacto',
       disciplines: ['Arquitectura UX / UI', 'Sistemas de Diseño', 'Temas E-Commerce', 'Interacción de Producto'],
       featuredBadge: 'Caso de Estudio Destacado',
-      stickerText: 'Claridad Sobre el Ruido',
+      stickerText: 'Diseño Centrado en Personas',
     },
     words: {
       lead: 'Cada proyecto con impacto vive en la intersección de',
@@ -183,25 +183,25 @@ export const TRANSLATIONS = {
     principles: {
       title: 'Cómo Nace una Gran Interfaz',
       sub: 'Cuatro principios rectores que guían cada decisión de diseño, desde el descubrimiento inicial hasta el despliegue en producción.',
-      tag: 'Principio Rector',
+      tag: '',
     },
     workflow: {
       title: 'Flujo de Diseño de Punta a Punta',
-      scrollHint: 'Desplaza o haz clic para avanzar de etapa',
+      scrollHint: '',
       outcome: 'Resultado Medible:',
       stepOf: 'de',
       preview: 'Previsualización de Entregables',
     },
     floating: {
-      title: 'Presencia espacial más allá de la grilla convencional.',
-      bio: 'Las interfaces digitales no deben sentirse como plantillas genéricas. Mediante anclas asimétricas, profundidad visual en capas y contrastes táctiles, cada pantalla capta la atención natural y cuenta una historia fluida.',
-      cta: 'Ver Biblioteca de Proyectos',
-      badgeTitle: 'Arquitectura de Diseño',
-      badgeDesc: 'Catálogo e-commerce multinivel con tarjetas modulares de producto y tipografía fluida.',
+      title: 'Marcas y Equipos que Confían en Marianne',
+      bio: 'Colaborando con organizaciones líderes en retail, industria e instituciones de renombre internacional para construir plataformas de e-commerce y sistemas de diseño escalables.',
+      cta: 'Ver Proyectos Realizados',
+      badgeTitle: 'Confiabilidad en Producción',
+      badgeDesc: 'Arquitecturas probadas que potencian usuarios enterprise y comercio internacional.',
     },
     about: {
-      title: 'Diseñando productos digitales que se sienten naturales, claros y humanos.',
-      bio: 'En los últimos 9+ años me he especializado en transformar ecosistemas digitales complejos en interfaces intuitivas y de alta conversión. Colaboro con equipos de producto y marcas en EE.UU., Europa y Latinoamérica construyendo design systems, temas para e-commerce y plataformas web donde la usabilidad y la identidad se potencian mutuamente.',
+      title: 'Diseño interfaces donde la claridad, el carácter y la usabilidad conviven en equilibrio absoluto.',
+      bio: 'Construyo sistemas de diseño escalables, temas e-commerce a medida y plataformas web intuitivas que transforman arquitecturas complejas en experiencias humanas y memorables.',
       coreFocusTitle: 'Enfoque Principal',
       coreFocusDesc: 'UX Enterprise, Tokens de Diseño, Temas para BigCommerce y NetSuite, y Prototipado Interactivo de Alta Fidelidad.',
       languagesTitle: 'Idiomas',
@@ -214,7 +214,7 @@ export const TRANSLATIONS = {
     reviews: {
       title: 'Qué Dicen los Stakeholders',
       sub: 'Recomendaciones directas de líderes de ingeniería, product managers y directores de agencias en proyectos globales de UX y e-commerce.',
-      hoverHint: 'Pasa el cursor sobre las tarjetas para moverlas y descubrir estrellitas',
+      hoverHint: '',
     },
     callingCard: {
       takeCard: 'Toma una tarjeta',
@@ -228,7 +228,7 @@ export const TRANSLATIONS = {
     footer: {
       kicker: '¿Sigues aquí?',
       letsTalk: 'Hablemos.',
-      spacePrompt: 'Presiona [ESPACIO] o Clic para saltar y estirar el texto',
+      spacePrompt: 'Presiona [ESPACIO] o Clic para saltar',
       marquee: 'MARIANNE TABAREZ — SENIOR WEB & UX/UI DESIGNER — SISTEMAS DE DISEÑO — TEMAS E-COMMERCE — CHILE / REMOTO —',
       directContact: 'Contacto Directo',
       profiles: 'Perfiles Profesionales',

@@ -51,35 +51,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
           </div>
 
-          {/* Right: Focused Editorial Bio (NO CV dump, purely human & purposeful) */}
+          {/* Right: Pure Bold Editorial Statement with the weight of a title throughout */}
           <div className="lg:col-span-7 space-y-8">
-            <h2 className="heading-1 text-[var(--text-primary)]">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-[1.05]">
               {t.about.title}
             </h2>
 
-            <p className="text-lg sm:text-xl text-[var(--text-secondary)] leading-relaxed font-medium">
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--text-secondary)] leading-[1.15] tracking-tight">
               {t.about.bio}
             </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[var(--card-border)]">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] block mb-2">
-                  {t.about.coreFocusTitle}
-                </span>
-                <p className="text-sm font-semibold text-[var(--text-primary)] leading-relaxed">
-                  {t.about.coreFocusDesc}
-                </p>
-              </div>
-
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] block mb-2">
-                  {t.about.languagesTitle}
-                </span>
-                <p className="text-sm font-semibold text-[var(--text-primary)] leading-relaxed">
-                  {t.about.languagesDesc}
-                </p>
-              </div>
-            </div>
 
             {/* Actions: View CV Modal + Contact */}
             <div className="pt-6 flex flex-wrap items-center gap-4">
@@ -93,7 +73,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
               <button
                 onClick={onContactClick}
-                className="px-6 py-3 rounded-full border border-[var(--card-border)] hover:border-black/40 dark:hover:border-white/40 text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] transition-colors cursor-pointer"
+                className="px-6 py-3.5 rounded-full border border-[var(--card-border)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-main)] text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] transition-all cursor-pointer"
               >
                 {t.about.ctaCollab}
               </button>

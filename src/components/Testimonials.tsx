@@ -28,12 +28,23 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
     { bg: '#1C1C1A', text: '#FFFFFF', sub: '#999894', quote: '#D4FF32' },
   ];
 
-  const floatingStars = [
-    { top: '-24px', left: '15%', delay: '0ms', size: 'text-lg', symbol: '✦' },
-    { top: '-38px', left: '42%', delay: '120ms', size: 'text-xl', symbol: '★' },
-    { top: '-28px', left: '75%', delay: '240ms', size: 'text-sm', symbol: '✨' },
-    { top: '-46px', left: '88%', delay: '80ms', size: 'text-base', symbol: '✦' },
-    { top: '-32px', left: '28%', delay: '180ms', size: 'text-xs', symbol: '★' },
+  // Sprinkle bomb explosion particles: varying sizes, vibrant colors, trajectories
+  const sprinkleParticles = [
+    { dx: '-60px', dy: '-90px', s: 1.4, rot: '180deg', color: '#D4FF32', size: '20px', symbol: '✦', delay: '0ms' },
+    { dx: '70px', dy: '-110px', s: 1.8, rot: '-220deg', color: '#FF5252', size: '24px', symbol: '★', delay: '40ms' },
+    { dx: '-110px', dy: '-60px', s: 1.2, rot: '320deg', color: '#00E5FF', size: '18px', symbol: '✨', delay: '80ms' },
+    { dx: '120px', dy: '-50px', s: 1.6, rot: '-180deg', color: '#F6D332', size: '22px', symbol: '✦', delay: '20ms' },
+    { dx: '-30px', dy: '-120px', s: 1.3, rot: '240deg', color: '#E85338', size: '16px', symbol: '★', delay: '60ms' },
+    { dx: '40px', dy: '-130px', s: 1.5, rot: '-300deg', color: '#2454FF', size: '20px', symbol: '✦', delay: '100ms' },
+    { dx: '-90px', dy: '-100px', s: 1.1, rot: '190deg', color: '#FFFFFF', size: '14px', symbol: '✨', delay: '30ms' },
+    { dx: '95px', dy: '-85px', s: 1.7, rot: '-160deg', color: '#D4FF32', size: '24px', symbol: '★', delay: '70ms' },
+    { dx: '-130px', dy: '-30px', s: 1.2, rot: '280deg', color: '#FF6B8B', size: '16px', symbol: '✦', delay: '90ms' },
+    { dx: '130px', dy: '-25px', s: 1.4, rot: '-260deg', color: '#00E5FF', size: '18px', symbol: '✨', delay: '50ms' },
+    { dx: '0px', dy: '-140px', s: 1.9, rot: '360deg', color: '#F6D332', size: '26px', symbol: '★', delay: '110ms' },
+    { dx: '-50px', dy: '-40px', s: 1.0, rot: '-140deg', color: '#D4FF32', size: '14px', symbol: '✦', delay: '10ms' },
+    { dx: '55px', dy: '-45px', s: 1.2, rot: '200deg', color: '#FF5252', size: '16px', symbol: '✨', delay: '85ms' },
+    { dx: '-75px', dy: '-135px', s: 1.6, rot: '-320deg', color: '#2454FF', size: '22px', symbol: '✦', delay: '65ms' },
+    { dx: '80px', dy: '-125px', s: 1.3, rot: '270deg', color: '#FFFFFF', size: '18px', symbol: '★', delay: '45ms' },
   ];
 
   return (
@@ -86,20 +97,27 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
                     : 'shadow-xl opacity-90 hover:opacity-100'
                 }`}
               >
-                {/* Flying Stars Animation (volar estrellitas al hacer hover) */}
+                {/* Sprinkle Bomb Explosion (estrellitas saltando y volando como bomba de sprinkles) */}
                 {isHovered && (
-                  <div className="absolute inset-0 pointer-events-none overflow-visible">
-                    {floatingStars.map((st, sIdx) => (
+                  <div className="absolute inset-0 pointer-events-none overflow-visible z-50">
+                    {sprinkleParticles.map((p, pIdx) => (
                       <span
-                        key={sIdx}
+                        key={pIdx}
                         style={{
-                          top: st.top,
-                          left: st.left,
-                          animationDelay: st.delay,
+                          top: '15%',
+                          left: '50%',
+                          fontSize: p.size,
+                          color: p.color,
+                          animation: `sprinklePop 900ms cubic-bezier(0.15, 0.9, 0.25, 1.2) ${p.delay} forwards`,
+                          ['--dx' as any]: p.dx,
+                          ['--dy' as any]: p.dy,
+                          ['--s' as any]: p.s,
+                          ['--rot' as any]: p.rot,
+                          textShadow: `0 0 10px ${p.color}88`,
                         }}
-                        className={`absolute ${st.size} text-[#D4FF32] drop-shadow-md animate-bounce`}
+                        className="absolute pointer-events-none select-none font-bold"
                       >
-                        {st.symbol}
+                        {p.symbol}
                       </span>
                     ))}
                   </div>
@@ -140,11 +158,6 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
             );
           })}
         </div>
-
-        {/* Small hint at bottom */}
-        <p className="text-center text-xs font-semibold text-[var(--text-secondary)] mt-4">
-          {t.reviews.hoverHint}
-        </p>
       </div>
     </section>
   );

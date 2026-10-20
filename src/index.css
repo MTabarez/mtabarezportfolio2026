@@ -211,3 +211,27 @@
     transform: translateX(-50%);
   }
 }
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Sprinkle Bomb Confetti Burst Animation */
+@keyframes sprinklePop {
+  0% {
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(var(--s)) rotate(var(--rot));
+    opacity: 0;
+  }
+}

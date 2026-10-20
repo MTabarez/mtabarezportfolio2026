@@ -129,11 +129,6 @@ export const TiltedCards: React.FC<TiltedCardsProps> = ({ mode }) => {
                     {card.description}
                   </p>
                 </div>
-
-                <div className="pt-6 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-xs font-bold uppercase tracking-wider opacity-75">
-                  <span>{t.principles.tag}</span>
-                  <span>✦</span>
-                </div>
               </div>
             );
           })}

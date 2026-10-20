@@ -12,7 +12,7 @@ import { Projects } from './components/Projects';
 import { Services } from './components/Services';
 import { TiltedCards } from './components/TiltedCards';
 import { ScrollLockSection } from './components/ScrollLockSection';
-import { FloatingImageSection } from './components/FloatingImageSection';
+import { TrustedBySection } from './components/TrustedBySection';
 import { Testimonials } from './components/Testimonials';
 import { AboutSection } from './components/AboutSection';
 import { DraggablePersonalCard } from './components/DraggablePersonalCard';
@@ -186,13 +186,8 @@ export default function App() {
         {/* 6. Signature Case-Study Stepper Section (Scroll Lock Pin) */}
         <ScrollLockSection mode={mode} />
 
-        {/* 7. Asymmetric Floating Image Breaking Container */}
-        <div className="bg-[#FFFFFF] dark:bg-[#141414] transition-colors duration-500">
-          <FloatingImageSection
-            mode={mode}
-            onExploreWork={scrollToWork}
-          />
-        </div>
+        {/* 7. Trusted By Dual Opposite Marquee with Scroll Drawing Line */}
+        <TrustedBySection mode={mode} />
 
         {/* 8. Focused About & Manifesto */}
         <div className="bg-[var(--bg-main)]">
