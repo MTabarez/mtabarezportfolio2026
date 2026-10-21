@@ -26,8 +26,8 @@ export const WordHoverEffect: React.FC<WordHoverEffectProps> = ({ mode }) => {
 
   return (
     <section className="py-16 sm:py-24 border-y border-[var(--card-border)] bg-[var(--card-surface)] transition-colors duration-300">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
-        <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-[var(--text-primary)]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 text-center">
+        <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.2] text-[var(--text-primary)] max-w-5xl mx-auto">
           {t.words.lead}{' '}
           {words.map((item, index) => {
             const isHovered = hoveredWord === item.text;
@@ -55,10 +55,6 @@ export const WordHoverEffect: React.FC<WordHoverEffectProps> = ({ mode }) => {
             );
           })}
         </div>
-
-        <p className="mt-6 text-base sm:text-lg text-[var(--text-secondary)] font-medium max-w-2xl">
-          {t.words.sub}
-        </p>
       </div>
     </section>
   );

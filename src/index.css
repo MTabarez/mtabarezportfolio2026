@@ -137,17 +137,16 @@
     overflow-x: hidden;
   }
 
-  /* Hide default cursor on desktop when novel custom cursor is active */
-  @media (min-width: 768px) {
-    body.custom-cursor-active {
-      cursor: none;
-    }
-    body.custom-cursor-active a,
-    body.custom-cursor-active button,
-    body.custom-cursor-active [role="button"],
-    body.custom-cursor-active input,
-    body.custom-cursor-active select,
-    body.custom-cursor-active textarea {
+  /* Hide default cursor on desktop when pointer is fine for custom cursor replacement */
+  @media (pointer: fine) {
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"],
+    [data-cursor] {
       cursor: none !important;
     }
   }
@@ -235,3 +234,19 @@
     opacity: 0;
   }
 }
+
+/* Single-run Hablemos stream animation across screen: appears immediately and glides smoothly */
+@keyframes streamTextOnce {
+  0% {
+    transform: translateX(10%);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-130%);
+    opacity: 0;
+  }
+}
+

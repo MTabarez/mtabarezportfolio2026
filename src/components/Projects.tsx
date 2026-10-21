@@ -56,13 +56,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                   <span className="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-white">
                     {isLatam && PROJECTS[0].categoryEs ? PROJECTS[0].categoryEs : PROJECTS[0].category}
                   </span>
-                  <span className="text-xs font-bold text-[#D4FF32]">
-                    {isLatam ? 'Caso Destacado Top' : 'Top Featured Case Study'}
-                  </span>
                 </div>
-                <span className="text-xl sm:text-2xl font-black text-white/80">
-                  {PROJECTS[0].number}
-                </span>
               </div>
 
               {/* Bottom Content */}
@@ -93,7 +87,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
 
                   <MagneticPillButton
                     onClick={() => setSelectedProject(PROJECTS[0])}
-                    variant="accent"
+                    variant={mode === 'latam' ? 'latam' : 'accent'}
                     size="md"
                   >
                     {t.work.viewCase}
@@ -123,9 +117,6 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                   <div className="absolute top-5 left-5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider">
                     {isLatam && PROJECTS[1].categoryEs ? PROJECTS[1].categoryEs : PROJECTS[1].category}
                   </div>
-                  <span className="absolute top-5 right-5 text-xl font-black text-white/90 drop-shadow-md">
-                    {PROJECTS[1].number}
-                  </span>
                 </div>
 
                 <div className="p-8 sm:p-10 flex flex-col justify-between flex-1">
@@ -173,9 +164,6 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                     <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-white">
                       {isLatam && PROJECTS[2].categoryEs ? PROJECTS[2].categoryEs : PROJECTS[2].category}
                     </span>
-                    <span className="text-xl font-black text-white/70">
-                      {PROJECTS[2].number}
-                    </span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white group-hover:text-[#D4FF32] transition-colors">
@@ -200,7 +188,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
 
                   <MagneticPillButton
                     onClick={() => setSelectedProject(PROJECTS[2])}
-                    variant="accent"
+                    variant={mode === 'latam' ? 'latam' : 'accent'}
                     size="sm"
                   >
                     {t.work.viewCase}
@@ -233,9 +221,6 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
               <div className="lg:col-span-7 p-8 sm:p-12 md:p-14 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xl sm:text-2xl font-black text-[var(--text-secondary)]">
-                      {PROJECTS[3].number}
-                    </span>
                     <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent-main)]">
                       {PROJECTS[3].year}
                     </span>

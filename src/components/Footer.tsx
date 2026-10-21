@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SiteMode } from '../types';
-import { ArrowUpRight, Mail, Linkedin, FileText, ArrowUp } from 'lucide-react';
+import { ArrowUpRight, Mail, Linkedin, FileText, ArrowUp, Phone, Heart } from 'lucide-react';
 import { ContactForm } from './ContactForm';
 import { getTranslation } from '../data/translations';
 
 interface FooterProps {
   mode: SiteMode;
   onOpenCV: () => void;
-  onReopenIntro: () => void;
+  onReopenIntro?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro }) => {
+export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
   const [isJumping, setIsJumping] = useState(false);
   const [jumpCount, setJumpCount] = useState(0);
   const [isStretched, setIsStretched] = useState(false);
   const [speechPhrase, setSpeechPhrase] = useState<string | null>(null);
   const footerRef = useRef<HTMLElement>(null);
+  const streamTimeoutRef = useRef<number | null>(null);
   const t = getTranslation(mode);
 
   const phrases = [
@@ -26,23 +27,25 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
     'Super jump! ✦',
   ];
 
-  // Trigger jump action and text stretching
+  // Trigger jump action and single-run text streaming
   const triggerJump = () => {
-    if (isJumping) return;
+    if (isJumping || isStretched) return;
     setIsJumping(true);
     setJumpCount((c) => c + 1);
     setIsStretched(true);
     setSpeechPhrase(phrases[jumpCount % phrases.length]);
 
+    // Character jump animation duration
     setTimeout(() => {
       setIsJumping(false);
-    }, 650);
+    }, 600);
 
-    // Reset stretched text after 4.5 seconds
-    setTimeout(() => {
+    // Safety fallback to close mouth if onAnimationEnd doesn't fire
+    if (streamTimeoutRef.current) clearTimeout(streamTimeoutRef.current);
+    streamTimeoutRef.current = window.setTimeout(() => {
       setIsStretched(false);
       setSpeechPhrase(null);
-    }, 4500);
+    }, 4000);
   };
 
   useEffect(() => {
@@ -53,15 +56,17 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
         document.activeElement?.tagName !== 'INPUT' &&
         document.activeElement?.tagName !== 'TEXTAREA'
       ) {
-        // Prevent default spacebar window scrolling!
         e.preventDefault();
         triggerJump();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isJumping, jumpCount]);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (streamTimeoutRef.current) clearTimeout(streamTimeoutRef.current);
+    };
+  }, [isJumping, isStretched, jumpCount]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -121,16 +126,19 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
           </div>
 
           {/* STREAMING TEXT:
+              Single-run animation (runs once, then stops; no infinite loop).
               Runs across the container with z-index (z-10) UNDERNEATH the character (macaco z-30),
               shooting from the character's open mouth towards the left! */}
           {isStretched && (
             <div className="absolute inset-y-0 right-0 left-0 flex items-center pointer-events-none z-10 overflow-hidden">
-              <div className="flex whitespace-nowrap animate-[marquee_4.5s_linear_infinite] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none text-[#D4FF32] pr-12">
+              <div
+                onAnimationEnd={() => {
+                  setIsStretched(false);
+                  setSpeechPhrase(null);
+                }}
+                className="flex whitespace-nowrap animate-[streamTextOnce_7s_linear_forwards] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none text-[#D4FF32] pr-12"
+              >
                 <span>
-                  {isLatam
-                    ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
-                    : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
-                  &nbsp;&nbsp;&nbsp;&nbsp;
                   {isLatam
                     ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
                     : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
@@ -174,8 +182,16 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
 
                 {/* Animated Eyes: wide open while mouth is open emitting text */}
                 <div className="flex items-center gap-3 mb-2">
-                  <span className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
-                  <span className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'}`} />
+                  <span
+                    className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${
+                      isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'
+                    }`}
+                  />
+                  <span
+                    className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${
+                      isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'
+                    }`}
+                  />
                 </div>
 
                 {/* Mouth: KEEPS OPEN UNTIL THE TEXT FINISHES PASSING (while isStretched is true!) */}
@@ -214,26 +230,30 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
           </div>
         </div>
 
-        {/* Striking Interactive Contact Form */}
+        {/* Striking Interactive Contact Form (Takes full available width) */}
         <ContactForm mode={mode} />
 
         {/* Contact Links & Information Grid */}
         <div className="py-14 sm:py-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 border-b border-white/15">
-          {/* Col 1: Direct Email */}
+          {/* Col 1: Direct Email & Phone */}
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
               {t.footer.directContact}
             </span>
             <a
-              href="mailto:mtabareza@gmail.com"
+              href="mailto:say-hi@mtabarez.com"
               className="text-lg sm:text-xl font-bold text-white hover:text-[#D4FF32] transition-colors flex items-center gap-1.5"
             >
-              <span>mtabareza@gmail.com</span>
+              <span>say-hi@mtabarez.com</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
-            <div className="text-xs text-white/70 mt-1">
-              +57 320 8228986
-            </div>
+            <a
+              href="tel:+56981878086"
+              className="text-sm font-semibold text-white/80 hover:text-white transition-colors flex items-center gap-1.5 mt-2"
+            >
+              <Phone className="w-3.5 h-3.5 opacity-60" />
+              <span>+56981878086</span>
+            </a>
           </div>
 
           {/* Col 2: Social & Profiles */}
@@ -241,27 +261,40 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
             <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
               {t.footer.profiles}
             </span>
-            <div className="space-y-1.5 text-sm font-semibold">
+            <div className="space-y-2.5 text-sm font-semibold">
               <div>
                 <a
                   href="https://linkedin.com/in/mtabareza"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-white/90 hover:text-white flex items-center gap-1 transition-colors"
+                  className="text-white/90 hover:text-white flex items-center gap-2 transition-colors"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-4 h-4 shrink-0" />
                   <span>LinkedIn / mtabareza</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                 </a>
               </div>
               <div>
                 <a
-                  href="https://mariannetabarez.com"
+                  href="https://dribbble.com/mtabarez"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-white/90 hover:text-white flex items-center gap-1 transition-colors"
+                  className="text-white/90 hover:text-white flex items-center gap-2 transition-colors"
                 >
-                  <span>mariannetabarez.com</span>
+                  <span className="w-4 h-4 rounded-full bg-pink-500/20 text-pink-400 font-black text-[10px] flex items-center justify-center shrink-0">Db</span>
+                  <span>Dribbble / mtabarez</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                </a>
+              </div>
+              <div>
+                <a
+                  href="https://behance.net/mtabarez"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white/90 hover:text-white flex items-center gap-2 transition-colors"
+                >
+                  <span className="w-4 h-4 rounded-full bg-blue-500/20 text-blue-400 font-black text-[10px] flex items-center justify-center shrink-0">Bē</span>
+                  <span>Behance / mtabarez</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                 </a>
               </div>
@@ -281,7 +314,7 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
             </div>
           </div>
 
-          {/* Col 4: CV & Mode Revisit */}
+          {/* Col 4: CV */}
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
               {t.footer.docsHeading}
@@ -294,14 +327,6 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
                 <FileText className="w-4 h-4" />
                 <span>{t.footer.viewCV}</span>
               </button>
-              <div>
-                <button
-                  onClick={onReopenIntro}
-                  className="text-xs font-semibold text-white/70 hover:text-white cursor-pointer"
-                >
-                  {t.footer.reopenLens}
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -314,8 +339,9 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV, onReopenIntro })
 
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>{t.footer.crafted}</span>
+              <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline-block shrink-0" aria-hidden="true" />
+              <span>· Marianne Tabarez</span>
             </span>
 
             <button

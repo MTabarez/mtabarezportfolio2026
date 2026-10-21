@@ -73,7 +73,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
               <button
                 onClick={onContactClick}
-                className="px-6 py-3.5 rounded-full border border-[var(--card-border)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-main)] text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] transition-all cursor-pointer"
+                className="px-6 py-3.5 rounded-full border border-[var(--card-border)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-main)] text-xs font-bold tracking-wide text-[var(--text-primary)] transition-all cursor-pointer"
               >
                 {t.about.ctaCollab}
               </button>

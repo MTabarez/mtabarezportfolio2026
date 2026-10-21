@@ -86,7 +86,7 @@ export const AccessibilityPanel: React.FC<AccessibilityPanelProps> = ({
                     <Info className="w-3 h-3" />
                   </button>
                   {activeTooltip === 'textSize' && (
-                    <div className="absolute right-0 bottom-full mb-2 w-56 p-2.5 rounded-xl bg-black text-white text-[11px] leading-relaxed shadow-xl z-50">
+                    <div className="absolute right-0 bottom-full mb-2 w-64 sm:w-72 p-4 sm:p-5 rounded-md bg-[#121212] border border-white/20 text-white text-xs leading-relaxed shadow-2xl z-50">
                       Escala la tipografía proporcionalmente en todo el sitio para mayor legibilidad sin romper la retícula.
                     </div>
                   )}
@@ -134,7 +134,7 @@ export const AccessibilityPanel: React.FC<AccessibilityPanelProps> = ({
                     <Info className="w-3 h-3" />
                   </button>
                   {activeTooltip === 'contrast' && (
-                    <div className="absolute right-0 bottom-full mb-2 w-56 p-2.5 rounded-xl bg-black text-white text-[11px] leading-relaxed shadow-xl z-50">
+                    <div className="absolute right-0 bottom-full mb-2 w-64 sm:w-72 p-4 sm:p-5 rounded-md bg-[#121212] border border-white/20 text-white text-xs leading-relaxed shadow-2xl z-50">
                       Refuerza los bordes y oscurece los textos secundarios para máxima nitidez bajo luz solar directa o baja visión.
                     </div>
                   )}
@@ -181,7 +181,7 @@ export const AccessibilityPanel: React.FC<AccessibilityPanelProps> = ({
                     <Info className="w-3 h-3" />
                   </button>
                   {activeTooltip === 'vision' && (
-                    <div className="absolute right-0 bottom-full mb-2 w-60 p-2.5 rounded-xl bg-black text-white text-[11px] leading-relaxed shadow-xl z-50">
+                    <div className="absolute right-0 bottom-full mb-2 w-64 sm:w-72 p-4 sm:p-5 rounded-md bg-[#121212] border border-white/20 text-white text-xs leading-relaxed shadow-2xl z-50">
                       Aplica filtros cromáticos en tiempo real que adaptan la gama para personas con daltonismo (Protanopia, Deuteranopia, Tritanopia).
                     </div>
                   )}
@@ -230,7 +230,7 @@ export const AccessibilityPanel: React.FC<AccessibilityPanelProps> = ({
                     <Info className="w-3 h-3" />
                   </button>
                   {activeTooltip === 'motion' && (
-                    <div className="absolute right-0 bottom-full mb-2 w-64 p-3 rounded-xl bg-black text-white text-[11px] leading-relaxed shadow-xl z-50">
+                    <div className="absolute right-0 bottom-full mb-2 w-64 sm:w-72 p-4 sm:p-5 rounded-md bg-[#121212] border border-white/20 text-white text-xs leading-relaxed shadow-2xl z-50">
                       <strong>Reduced Motion:</strong> Optimizado para teléfonos o computadoras más lentas, o para personas sensibles al movimiento o con batería baja. Desactiva animaciones pesadas y transiciones continuas.
                     </div>
                   )}

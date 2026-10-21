@@ -37,7 +37,7 @@ export const DraggablePersonalCard: React.FC<DraggablePersonalCardProps> = ({ mo
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText('mtabareza@gmail.com');
+    navigator.clipboard.writeText('say-hi@mtabarez.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -84,25 +84,28 @@ export const DraggablePersonalCard: React.FC<DraggablePersonalCardProps> = ({ mo
 
           <div className="pt-2 border-t border-black/10 flex items-center justify-between text-[11px] text-black/60 font-semibold">
             <span>{t.callingCard.location}</span>
-            <span>mtabareza@gmail.com</span>
+            <span>say-hi@mtabarez.com</span>
           </div>
         </div>
 
         {/* TOP DRAGGABLE CARD:
             1. Tilted slightly to the right (4.5deg) in resting state
-            2. Draggable anywhere with spring bounce against screen borders
-            3. Revealing the stack underneath */}
+            2. When released, stays exactly where placed (dragMomentum=false, dragElastic=0)
+            3. Pan-Y touch-action so mobile vertical scroll is not blocked
+            4. Fully accessible with keyboard */}
         <motion.div
           drag
           dragConstraints={constraints}
-          dragElastic={0.18}
-          dragMomentum={true}
-          dragTransition={{ bounceStiffness: 400, bounceDamping: 25 }}
+          dragElastic={0}
+          dragMomentum={false}
           initial={{ rotate: 4.5 }}
-          whileHover={{ scale: 1.02, rotate: 6 }}
-          whileTap={{ scale: 0.98, cursor: 'grabbing' }}
+          whileTap={{ scale: 0.99, cursor: 'grabbing' }}
+          tabIndex={0}
+          role="region"
+          aria-label="Tarjeta de contacto interactiva de Marianne Tabarez"
           data-cursor="drag"
-          className="pointer-events-auto relative w-full p-6 sm:p-7 rounded-[28px] border-2 border-black/15 bg-[#FFFDF7] text-[#121212] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] cursor-grab transition-shadow duration-200"
+          style={{ touchAction: 'pan-y' }}
+          className="pointer-events-auto relative w-full p-6 sm:p-7 rounded-[28px] border-2 border-black/15 bg-[#FFFDF7] text-[#121212] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.28)] cursor-grab transition-shadow duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
         >
           {/* Top Header with "Toma una tarjeta" */}
           <div className="flex items-center justify-between pb-3 border-b border-black/10">
@@ -130,7 +133,7 @@ export const DraggablePersonalCard: React.FC<DraggablePersonalCardProps> = ({ mo
             <div className="text-[11px] font-semibold text-black/70 mt-2 flex items-center gap-2">
               <span>{t.callingCard.location}</span>
               <span>·</span>
-              <span>mtabareza@gmail.com</span>
+              <span>say-hi@mtabarez.com</span>
             </div>
           </div>
 
@@ -138,7 +141,8 @@ export const DraggablePersonalCard: React.FC<DraggablePersonalCardProps> = ({ mo
           <div className="pt-3 border-t border-black/10 flex items-center justify-between">
             <button
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black text-white hover:bg-[#2454FF] text-xs font-bold transition-colors cursor-pointer"
+              aria-label="Copiar email de Marianne Tabarez al portapapeles"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black text-white hover:bg-[#2454FF] text-xs font-bold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
             >
               {copied ? <Check className="w-3 h-3 text-[#D4FF32]" /> : <Copy className="w-3 h-3" />}
               <span>{copied ? t.callingCard.copied : t.callingCard.copyEmail}</span>
@@ -149,7 +153,7 @@ export const DraggablePersonalCard: React.FC<DraggablePersonalCardProps> = ({ mo
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-1 text-xs font-bold text-black/70 hover:text-black transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-bold text-black/70 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-sm"
             >
               <Linkedin className="w-3.5 h-3.5" />
               <span>{t.callingCard.linkedin}</span>

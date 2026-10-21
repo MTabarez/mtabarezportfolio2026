@@ -39,25 +39,19 @@ export const BritishFlagIcon: React.FC<{ className?: string }> = ({ className = 
 };
 
 /**
- * Latin America Icon for LATAM mode.
- * Combines the vibrant golden Sol / Sun of May and Latin American warmth.
+ * South America continent vector icon for LATAM mode.
+ * Clean, unmistakable silhouette of Sudamérica.
  */
 export const LatamIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => {
   return (
     <svg
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       className={`${className} shrink-0 inline-block`}
       aria-hidden="true"
     >
-      {/* Central warm sun disk */}
-      <circle cx="12" cy="12" r="4.5" fill="#F6D332" stroke="#E85338" strokeWidth="1.5" />
-      {/* 8 Radiating geometric rays */}
       <path
-        d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"
-        stroke="#E85338"
-        strokeWidth="2"
-        strokeLinecap="round"
+        d="M7.8 3.2C8.6 3 9.8 2.5 11.2 2.3C13.2 2 15 2.6 16.5 3.6C17.6 4.3 18.8 5.6 19.8 7.3C20.6 8.7 20.9 10.1 20.7 11.2C20.4 12.6 19.4 14.1 18.2 15.4C17.3 16.4 16.3 17.5 15.6 18.8C15 19.9 14.1 21.2 13.3 22.1C13 22.5 12.5 22.8 12.1 22.8C11.7 22.8 11.4 22.4 11.3 21.9C11.1 20.6 11.5 19.4 11.4 17.8C11.3 16.5 10.8 15.3 10.3 14.1C9.6 12.7 8.9 11.5 8.1 10.4C7.4 9.4 6.8 8.4 6.8 7.2C6.8 5.8 7.2 4.3 7.8 3.2Z"
       />
     </svg>
   );

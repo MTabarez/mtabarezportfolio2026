@@ -144,26 +144,6 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
     },
   ];
 
-  // Scroll pin & step advancement effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      if (rect.top <= 100 && rect.bottom >= windowHeight) {
-        const totalScrollableDistance = rect.height - windowHeight;
-        const scrolledDistance = -rect.top + 100;
-        const progress = Math.min(Math.max(scrolledDistance / totalScrollableDistance, 0), 1);
-        const targetStep = Math.min(Math.floor(progress * steps.length), steps.length - 1);
-        setCurrentStep(targetStep);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [steps.length]);
-
   const current = steps[currentStep];
   const StepIcon = current.icon;
 
@@ -171,14 +151,12 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
   const prevStep = () => setCurrentStep((prev) => (prev - 1 + steps.length) % steps.length);
 
   return (
-    <div
+    <section
       ref={sectionRef}
       id="workflow"
-      className="relative min-h-[220vh] bg-[var(--card-surface)] border-y border-[var(--card-border)] scroll-mt-20"
+      className="py-20 sm:py-28 bg-[var(--card-surface)] border-y border-[var(--card-border)] scroll-mt-20"
     >
-      {/* Sticky Pinned Screen */}
-      <div className="sticky top-16 md:top-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center py-10 sm:py-14">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 w-full">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 w-full">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
             <div>
@@ -223,7 +201,7 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-black tracking-widest uppercase">
+                    <span className="text-xs font-bold tracking-wider">
                       {mode === 'latam' ? `Etapa ${s.stage}` : `Stage ${s.stage}`}
                     </span>
                     {isActive && <span className="w-2 h-2 rounded-full bg-[#D4FF32] animate-ping" />}
@@ -295,13 +273,6 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
             {/* Right: Graphic Visual Preview */}
             <div className="lg:col-span-5 relative">
               <div className="p-6 sm:p-8 rounded-[28px] border border-[var(--card-border)] bg-[var(--card-surface)] shadow-lg">
-                <div className="flex items-center justify-between pb-4 border-b border-[var(--card-border)] mb-5">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
-                    {t.workflow.preview}
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                </div>
-
                 <h4 className="font-extrabold text-lg text-[var(--text-primary)] mb-4">
                   {current.previewTitle}
                 </h4>
@@ -336,7 +307,6 @@ export const ScrollLockSection: React.FC<ScrollLockSectionProps> = ({ mode }) =>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </section>
   );
 };

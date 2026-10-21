@@ -3,8 +3,8 @@ import { ExperienceItem, EducationItem, CertificationItem } from '../types';
 export const CV_DATA = {
   name: 'Marianne Tabarez Aristegui',
   title: 'Web & UX/UI Designer',
-  email: 'mtabareza@gmail.com',
-  phone: '+57 320 8228986',
+  email: 'say-hi@mtabarez.com',
+  phone: '+56981878086',
   linkedin: 'https://linkedin.com/in/mtabareza',
   website: 'https://mariannetabarez.com',
   location: 'Chile / Remote (International)',

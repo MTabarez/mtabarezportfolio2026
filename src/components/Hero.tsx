@@ -20,22 +20,6 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
       )}
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
-        {/* Top Status Bar: Clean, direct, with Chile / Remote */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 sm:mb-12">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-main)]" />
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[var(--text-secondary)]">
-              {t.hero.status}
-            </span>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-3 text-xs font-semibold text-[var(--text-secondary)]">
-            <span>{t.hero.availability}</span>
-            <span>·</span>
-            <span>{t.hero.location}</span>
-          </div>
-        </div>
-
         {/* Main Collage Layout: Typography + Visual Anchor */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Oversized Typography (7 cols) */}

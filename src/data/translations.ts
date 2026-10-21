@@ -25,7 +25,7 @@ export const TRANSLATIONS = {
     },
     words: {
       lead: 'Every meaningful project lives at the intersection of',
-      sub: 'Hover over each discipline to activate the visual token. Interfaces must be constructed with deep consideration for every human touchpoint.',
+      sub: '',
     },
     work: {
       title: 'Selected Work',
@@ -108,7 +108,7 @@ export const TRANSLATIONS = {
       viewCV: 'View Full Curriculum Vitae',
       reopenLens: 'Reopen Exploration Lens [INTL / LATAM]',
       copyright: `© ${new Date().getFullYear()} Marianne Tabarez Aristegui. All rights reserved.`,
-      crafted: 'Crafted with Care · Chile / Remote',
+      crafted: 'Crafted with',
       backToTop: 'Back to Top',
     },
     form: {
@@ -156,7 +156,7 @@ export const TRANSLATIONS = {
     },
     words: {
       lead: 'Cada proyecto con impacto vive en la intersección de',
-      sub: 'Pasa el cursor sobre cada disciplina para activar su ficha cromática. Cada interfaz debe responder a las necesidades humanas reales.',
+      sub: '',
     },
     work: {
       title: 'Proyectos Seleccionados',
@@ -239,7 +239,7 @@ export const TRANSLATIONS = {
       viewCV: 'Ver Curriculum Vitae Completo',
       reopenLens: 'Reabrir Lente Visual [INTERNACIONAL / LATAM]',
       copyright: `© ${new Date().getFullYear()} Marianne Tabarez Aristegui. Todos los derechos reservados.`,
-      crafted: 'Diseñado con Cuidado · Chile / Remoto',
+      crafted: 'Diseñado con',
       backToTop: 'Volver Arriba',
     },
     form: {

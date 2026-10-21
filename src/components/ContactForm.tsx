@@ -38,7 +38,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto my-12 p-8 sm:p-12 md:p-16 rounded-[36px] sm:rounded-[48px] bg-[#181818] text-[#F6F4EE] border border-white/15 shadow-2xl relative overflow-hidden">
+    <div className="w-full my-12 p-8 sm:p-12 md:p-16 rounded-[36px] sm:rounded-[48px] bg-[#181818] text-[#F6F4EE] border border-white/15 shadow-2xl relative overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-[#2454FF]/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#D4FF32]/12 rounded-full blur-3xl pointer-events-none" />
@@ -66,7 +66,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
                   message: '',
                 });
               }}
-              className="px-6 py-2.5 rounded-full bg-white/15 hover:bg-white text-white hover:text-black font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-white/15 hover:bg-white text-white hover:text-black font-bold text-xs tracking-wide transition-colors cursor-pointer"
             >
               {t.form.sendAnother}
             </button>
@@ -84,9 +84,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
               {t.form.title}
             </h3>
-            <p className="mt-2 text-sm sm:text-base text-white/70">
-              {t.form.subtitle}
-            </p>
           </div>
 
           {/* 1. Name & Email inputs */}
@@ -191,7 +188,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <MagneticPillButton
               type="submit"
-              variant="accent"
+              variant={mode === 'latam' ? 'latam' : 'accent'}
               size="lg"
             >
               {isSending ? t.form.sendingBtn : t.form.submitBtn}

@@ -95,8 +95,8 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <BritishFlagIcon className="w-4 h-2.5" />
-              <span className="hidden xs:inline">INTERNACIONAL</span>
-              <span className="xs:hidden">INTL</span>
+              <span className="hidden xs:inline">Internacional</span>
+              <span className="xs:hidden">Intl</span>
             </button>
 
             {/* LATAM (Stylized Latin America / Sol Icon) */}
@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <LatamIcon className="w-4 h-4" />
-              <span>LATAM</span>
+              <span>Latam</span>
             </button>
           </div>
 

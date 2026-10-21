@@ -190,16 +190,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
             className="group relative p-8 sm:p-9 rounded-[32px] border transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-lg hover:shadow-2xl hover:-translate-y-1.5 cursor-pointer"
           >
             <div>
-              <div className="flex items-center justify-between w-full mb-6">
-                <span className="text-2xl font-black text-[#D4FF32]">
-                  {coreServices[0].number}
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-white/90">
-                  {t.services.discipline}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white pt-2">
                 {mode === 'latam' && coreServices[0].titleEs ? coreServices[0].titleEs : coreServices[0].title}
               </h3>
               <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#D4FF32]">
@@ -227,16 +218,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
             className="group relative p-8 sm:p-9 rounded-[32px] border transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-lg hover:shadow-2xl hover:-translate-y-1.5 cursor-pointer"
           >
             <div>
-              <div className="flex items-center justify-between w-full mb-6">
-                <span className="text-2xl font-black text-[#F6D332]">
-                  {coreServices[1].number}
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-white/90">
-                  {t.services.discipline}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white pt-2">
                 {mode === 'latam' && coreServices[1].titleEs ? coreServices[1].titleEs : coreServices[1].title}
               </h3>
               <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#F6D332]">
@@ -264,16 +246,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
             className="group relative p-8 sm:p-9 rounded-[32px] border transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-lg hover:shadow-2xl hover:-translate-y-1.5 cursor-pointer"
           >
             <div>
-              <div className="flex items-center justify-between w-full mb-6">
-                <span className="text-2xl font-black text-[#D4FF32]">
-                  {coreServices[2].number}
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-white/90">
-                  {t.services.discipline}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white pt-2">
                 {mode === 'latam' && coreServices[2].titleEs ? coreServices[2].titleEs : coreServices[2].title}
               </h3>
               <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#D4FF32]">
@@ -444,16 +417,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
             className="group relative p-8 sm:p-9 rounded-[32px] border transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-lg hover:shadow-2xl hover:-translate-y-1.5 cursor-pointer"
           >
             <div>
-              <div className="flex items-center justify-between w-full mb-6">
-                <span className="text-2xl font-black text-[#F6D332]">
-                  {coreServices[3].number}
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-white/90">
-                  {t.services.discipline}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white pt-2">
                 {mode === 'latam' && coreServices[3].titleEs ? coreServices[3].titleEs : coreServices[3].title}
               </h3>
               <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#F6D332]">
@@ -484,7 +448,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
 
           <MagneticPillButton
             onClick={onContactClick}
-            variant="accent"
+            variant={isLatam ? 'latam' : 'accent'}
             size="md"
           >
             {isLatam ? 'Hablar de un Proyecto' : 'Discuss a Project'}
