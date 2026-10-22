@@ -63,15 +63,68 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
           </p>
         </div>
 
-        {/* Stakeholder cards: horizontal sliding track on mobile, overlapping geometry on desktop */}
-        <div className="relative flex flex-row md:items-center md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory pt-8 pb-10 px-4 -mx-4 sm:mx-0 sm:px-0 gap-4 md:gap-0 no-scrollbar">
+        {/* ========================================================= */}
+        {/* MOBILE VIEW: Horizontal sliding carousel exclusively      */}
+        {/* ========================================================= */}
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 -mx-4 pb-4 no-scrollbar">
+          {TESTIMONIALS.slice(0, 3).map((testimonial, idx) => {
+            const themeColor = mode === 'latam'
+              ? latamColors[idx % latamColors.length]
+              : intlColors[idx % intlColors.length];
+
+            return (
+              <div
+                key={testimonial.id}
+                style={{
+                  backgroundColor: themeColor.bg,
+                  color: themeColor.text,
+                }}
+                className="shrink-0 w-[82vw] max-w-[320px] p-7 rounded-[32px] border border-[var(--card-border)] flex flex-col justify-between min-h-[380px] snap-center shadow-lg select-none"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <Quote style={{ color: themeColor.quote }} className="w-8 h-8 opacity-80" />
+                  </div>
+                  <p className="text-base leading-relaxed font-semibold">
+                    "{mode === 'latam' && testimonial.quoteEs ? testimonial.quoteEs : testimonial.quote}"
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-5 border-t border-black/10 dark:border-white/10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-black/10 dark:bg-white/15 flex items-center justify-center font-black text-sm shrink-0">
+                    {testimonial.author.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-extrabold text-sm">{testimonial.author}</div>
+                    <div style={{ color: themeColor.sub }} className="text-xs mt-0.5 font-medium">
+                      {testimonial.role} · {testimonial.organization}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile Swipe Hint */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 pt-2 pb-2">
+          <span className="text-[11px] font-semibold text-[var(--text-secondary)]/60">
+            {mode === 'latam' ? '← Desliza para ver más →' : '← Swipe to view more →'}
+          </span>
+        </div>
+
+        {/* ========================================================= */}
+        {/* DESKTOP VIEW: EXACT 100% ORIGINAL SUPERPUESTAS GEOMETRY   */}
+        {/* ========================================================= */}
+        <div className="hidden md:flex relative flex-row items-center justify-center pt-8 pb-10">
           {TESTIMONIALS.slice(0, 3).map((testimonial, idx) => {
             const isHovered = activeCardIndex === idx;
             const themeColor = mode === 'latam'
               ? latamColors[idx % latamColors.length]
               : intlColors[idx % intlColors.length];
 
-            // Overlapping geometry for desktop
+            // Superpuestas overlapping geometry:
+            // Resting rotation: -3deg, 1.5deg, -2deg
             const baseRotations = [-3, 2, -2.5];
             const rotation = isHovered ? 0 : baseRotations[idx];
 
@@ -83,14 +136,17 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
                 style={{
                   backgroundColor: themeColor.bg,
                   color: themeColor.text,
+                  transform: `translateY(${isHovered ? '-18px' : '0px'}) rotate(${rotation}deg) scale(${isHovered ? 1.05 : 0.98})`,
                   zIndex: isHovered ? 30 : 10 + idx,
+                  transition: 'transform 360ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease, opacity 300ms ease',
+                  willChange: 'transform',
                 }}
-                className={`relative shrink-0 w-[85vw] max-w-[340px] md:w-[380px] lg:w-[420px] p-7 sm:p-10 rounded-[32px] sm:rounded-[36px] border border-[var(--card-border)] cursor-pointer flex flex-col justify-between min-h-[380px] sm:min-h-[440px] select-none snap-center transition-all duration-300 ${
-                  idx !== 0 ? 'md:-ml-12 lg:-ml-16' : ''
-                } md:[transform:translateY(${isHovered ? '-18px' : '0px'})_rotate(${rotation}deg)_scale(${isHovered ? 1.05 : 0.98})] ${
+                className={`relative w-[380px] lg:w-[420px] p-8 sm:p-10 rounded-[36px] border border-[var(--card-border)] cursor-pointer flex flex-col justify-between min-h-[400px] sm:min-h-[440px] select-none ${
+                  idx !== 0 ? '-ml-12 lg:-ml-16' : ''
+                } ${
                   isHovered
                     ? 'shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] ring-2 ring-white/30 opacity-100'
-                    : 'shadow-xl opacity-95 hover:opacity-100'
+                    : 'shadow-xl opacity-90 hover:opacity-100'
                 }`}
               >
                 {/* Sprinkle Bomb Explosion (estrellitas saltando y volando como bomba de sprinkles) */}
@@ -149,14 +205,8 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
             );
           })}
         </div>
-
-        {/* Mobile Swipe Indicator Dots */}
-        <div className="flex md:hidden items-center justify-center gap-1.5 -mt-4 pb-4">
-          <span className="text-[11px] font-semibold text-[var(--text-secondary)]/60">
-            {mode === 'latam' ? '← Desliza para ver más →' : '← Swipe to view more →'}
-          </span>
-        </div>
       </div>
     </section>
   );
 };
+

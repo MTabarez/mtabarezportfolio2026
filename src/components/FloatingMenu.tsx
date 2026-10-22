@@ -151,11 +151,11 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({
                 </a>
               ))}
 
-              {/* Dedicated Accessibility Preferences Item inside the menu */}
+              {/* Dedicated Accessibility Preferences Item inside the menu (Mobile only, desktop has it in the header) */}
               <button
                 type="button"
                 onClick={() => setSubView('accessibility')}
-                className="group flex items-center justify-between py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all text-left cursor-pointer mt-3"
+                className="md:hidden group flex items-center justify-between py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all text-left cursor-pointer mt-3"
               >
                 <span className="flex items-center gap-3">
                   <span className="w-8 h-8 rounded-full bg-white/10 text-[#D4FF32] flex items-center justify-center group-hover:bg-[#D4FF32] group-hover:text-black transition-colors shrink-0">
@@ -169,10 +169,10 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({
               </button>
             </nav>
 
-            {/* Bottom Controls: Language Switcher (arriba de View Full CV) + CV + Social Links (No separator line) */}
+            {/* Bottom Controls: Language Switcher (Mobile only) + CV + Social Links (No separator line) */}
             <div className="relative z-10 space-y-3 pt-2 shrink-0">
-              {/* Language Switcher inside the menu, directly above View Full CV */}
-              <div className="space-y-1.5">
+              {/* Language Switcher inside the menu, directly above View Full CV (Mobile only, desktop has it in the header) */}
+              <div className="md:hidden space-y-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-white/45 block px-1">
                   {activeMode === 'latam' ? 'Idioma / sistema' : 'Language / mode'}
                 </span>
