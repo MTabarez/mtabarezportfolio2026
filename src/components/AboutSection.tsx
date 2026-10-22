@@ -2,6 +2,7 @@ import React from 'react';
 import { SiteMode } from '../types';
 import { MagneticPillButton } from './MagneticPillButton';
 import { getTranslation } from '../data/translations';
+import portraitImg from '../assets/images/about_designer_portrait_1790816314268.jpg';
 
 interface AboutSectionProps {
   mode: SiteMode;
@@ -26,7 +27,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <div className="relative rounded-[36px] sm:rounded-[44px] overflow-hidden border border-[var(--card-border)] bg-[var(--card-surface)] shadow-2xl group">
               <div className="aspect-[4/5] overflow-hidden bg-black/5">
                 <img
-                  src="/src/assets/images/about_designer_portrait_1790816314268.jpg"
+                  src={portraitImg}
                   alt="Marianne Tabarez, Web & UX/UI Designer"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="lazy"
@@ -51,13 +52,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
           </div>
 
-          {/* Right: Pure Bold Editorial Statement with the weight of a title throughout */}
-          <div className="lg:col-span-7 space-y-8">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-[1.05]">
+          {/* Right: Editorial Statement */}
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="heading-1 text-[var(--text-primary)]">
               {t.about.title}
             </h2>
 
-            <p className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--text-secondary)] leading-[1.15] tracking-tight">
+            <p className="text-lg sm:text-xl md:text-2xl font-medium text-[var(--text-secondary)] leading-relaxed">
               {t.about.bio}
             </p>
 

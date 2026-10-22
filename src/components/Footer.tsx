@@ -121,7 +121,7 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
             <p className="text-base sm:text-lg text-white/80 max-w-lg mt-2">
               {isLatam
                 ? 'Disponible para roles de diseño de producto, sistemas de diseño enterprise y colaboraciones globales.'
-                : 'Available for senior product design roles, enterprise design systems, and select global engagements.'}
+                : 'Available for product design roles, enterprise design systems, and select global engagements.'}
             </p>
           </div>
 

@@ -56,12 +56,6 @@ export const Header: React.FC<HeaderProps> = ({
             {t.nav.services}
           </a>
           <a
-            href="#workflow"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            {t.nav.workflow}
-          </a>
-          <a
             href="#about"
             className="hover:text-[var(--text-primary)] transition-colors"
           >
@@ -75,13 +69,13 @@ export const Header: React.FC<HeaderProps> = ({
           </a>
         </nav>
 
-        {/* Zone 3: Actions (Flag/Latam Mode Switch + Accessibility + Menu Trigger) */}
+        {/* Zone 3: Actions (Flag/Latam Mode Switch + Accessibility on desktop, single Menu Trigger on mobile) */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* INTERNACIONAL / LATAM Mode Switch */}
+          {/* INTERNACIONAL / LATAM Mode Switch (Desktop only; on mobile it resides inside the menu) */}
           <div
             role="group"
             aria-label="Design system visual mode"
-            className="p-1 rounded-full border border-[var(--card-border)] bg-[var(--card-surface)] flex items-center text-xs font-bold shadow-xs"
+            className="hidden md:flex p-1 rounded-full border border-[var(--card-border)] bg-[var(--card-surface)] items-center text-xs font-bold shadow-xs"
           >
             {/* Internacional (British Flag Icon) */}
             <button
@@ -95,8 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <BritishFlagIcon className="w-4 h-2.5" />
-              <span className="hidden xs:inline">Internacional</span>
-              <span className="xs:hidden">Intl</span>
+              <span>Internacional</span>
             </button>
 
             {/* LATAM (Stylized Latin America / Sol Icon) */}
@@ -115,17 +108,17 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
 
-          {/* Accessibility Preferences Trigger Button */}
+          {/* Accessibility Preferences Trigger Button (Desktop only; in mobile accessible via menu) */}
           <button
             onClick={onOpenAccessibility}
             aria-label="Open accessibility preferences"
             title="Accessibility settings"
-            className="w-10 h-10 rounded-full border border-[var(--card-border)] bg-[var(--card-surface)] hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center text-[var(--text-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-black cursor-pointer shadow-xs"
+            className="hidden md:flex w-10 h-10 rounded-full border border-[var(--card-border)] bg-[var(--card-surface)] hover:bg-black/5 dark:hover:bg-white/5 items-center justify-center text-[var(--text-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-black cursor-pointer shadow-xs"
           >
             <Sliders className="w-4 h-4" />
           </button>
 
-          {/* Floating Drawer Menu Trigger */}
+          {/* Single Menu Trigger */}
           <button
             onClick={onOpenMenu}
             aria-label="Open navigation menu"

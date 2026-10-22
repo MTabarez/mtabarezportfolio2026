@@ -2,6 +2,7 @@ import React from 'react';
 import { SiteMode } from '../types';
 import { MagneticPillButton } from './MagneticPillButton';
 import { getTranslation } from '../data/translations';
+import uvaHeroImg from '../assets/images/project_uva_portal_1790825391354.jpg';
 
 interface HeroProps {
   mode: SiteMode;
@@ -61,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
                 className="relative rounded-[32px] sm:rounded-[40px] overflow-hidden border border-[var(--card-border)] shadow-xl bg-[var(--card-surface)] transition-all duration-300 hover:scale-[1.01] cursor-pointer group"
               >
                 <img
-                  src="/src/assets/images/project_uva_portal_1790825391354.jpg"
+                  src={uvaHeroImg}
                   alt="University of Virginia digital experience e-commerce showcase on laptop"
                   className="w-full aspect-[4/3] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="eager"

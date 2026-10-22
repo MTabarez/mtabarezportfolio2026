@@ -7,11 +7,8 @@ import { Header } from './components/Header';
 import { FloatingMenu } from './components/FloatingMenu';
 import { AccessibilityPanel } from './components/AccessibilityPanel';
 import { Hero } from './components/Hero';
-import { WordHoverEffect } from './components/WordHoverEffect';
 import { Projects } from './components/Projects';
 import { Services } from './components/Services';
-import { TiltedCards } from './components/TiltedCards';
-import { ScrollLockSection } from './components/ScrollLockSection';
 import { TrustedBySection } from './components/TrustedBySection';
 import { Testimonials } from './components/Testimonials';
 import { AboutSection } from './components/AboutSection';
@@ -131,6 +128,9 @@ export default function App() {
         onToggleMode={handleSelectMode}
         onOpenCV={() => setIsCVOpen(true)}
         onOpenAccessibility={() => setIsAccessibilityOpen(true)}
+        a11ySettings={a11ySettings}
+        onUpdateSettings={setA11ySettings}
+        onResetA11y={handleResetA11y}
       />
 
       {/* Accessibility Configuration Panel */}
@@ -159,15 +159,12 @@ export default function App() {
           />
         </div>
 
-        {/* 2. Interactive Word Hover Effect */}
-        <WordHoverEffect mode={mode} />
-
-        {/* 3. Selected Work Projects Grid (Clean Gallery Canvas) */}
+        {/* 2. Selected Work Projects Grid (Clean Gallery Canvas) */}
         <div className="bg-[#FFFFFF] dark:bg-[#121212] transition-colors duration-500">
           <Projects mode={mode} />
         </div>
 
-        {/* 4. Services & Craft (SOLID HARD BACKGROUND BLOCK - as requested for dramatic rhythm) */}
+        {/* 3. Services & Craft */}
         <div
           className={`transition-colors duration-500 ${
             mode === 'latam'
@@ -178,18 +175,10 @@ export default function App() {
           <Services mode={mode} onContactClick={scrollToContact} />
         </div>
 
-        {/* 5. Guiding Principles Alignment on Scroll */}
-        <div className="bg-[var(--bg-main)]">
-          <TiltedCards mode={mode} />
-        </div>
-
-        {/* 6. Signature Case-Study Stepper Section (Scroll Lock Pin) */}
-        <ScrollLockSection mode={mode} />
-
-        {/* 7. Trusted By Dual Opposite Marquee with Scroll Drawing Line */}
+        {/* 4. Brands & Platforms */}
         <TrustedBySection mode={mode} />
 
-        {/* 8. Focused About & Manifesto */}
+        {/* 5. Focused About */}
         <div className="bg-[var(--bg-main)]">
           <AboutSection
             mode={mode}

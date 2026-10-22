@@ -38,9 +38,9 @@
     --max-content-width: 1440px;
   }
 
-  /* LATAM Visual Mode: Rich Latin American editorial palette, solid colors from the start */
+  /* LATAM Visual Mode: Clean #f2f2f2 background as requested, solid Latin American accent blocks */
   [data-mode="latam"] {
-    --bg-main: #F9F4EB;
+    --bg-main: #f2f2f2;
     --text-primary: #141312;
     --text-secondary: #4E4C47;
     --text-tertiary: #78756E;
@@ -53,9 +53,9 @@
     --accent-secondary-text: #FFFFFF;
     --hero-sticker-bg: #0D5C46;
     --hero-sticker-text: #F6D332;
-    --nav-bg: rgba(249, 244, 235, 0.92);
+    --nav-bg: rgba(242, 242, 242, 0.92);
     --footer-bg: #0D5C46;
-    --footer-text: #F9F4EB;
+    --footer-text: #f2f2f2;
     --footer-card-bg: #094735;
     --btn-primary-bg: #141312;
     --btn-primary-text: #FFFFFF;

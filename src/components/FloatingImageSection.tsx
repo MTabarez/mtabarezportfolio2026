@@ -2,6 +2,7 @@ import React from 'react';
 import { SiteMode } from '../types';
 import { MagneticPillButton } from './MagneticPillButton';
 import { getTranslation } from '../data/translations';
+import editorialImg from '../assets/images/project_ecommerce_editorial_1790816304762.jpg';
 
 interface FloatingImageSectionProps {
   mode: SiteMode;
@@ -44,7 +45,7 @@ export const FloatingImageSection: React.FC<FloatingImageSectionProps> = ({
             <div className="relative lg:-mr-28 xl:-mr-44 group">
               <div className="rounded-[36px] sm:rounded-[48px] overflow-hidden border border-[var(--card-border)] shadow-2xl bg-[var(--card-surface)] transition-transform duration-500 ease-out group-hover:scale-[1.02]">
                 <img
-                  src="/src/assets/images/project_ecommerce_editorial_1790816304762.jpg"
+                  src={editorialImg}
                   alt="Editorial digital interface layout showcasing typography hierarchy and tactile imagery"
                   className="w-full h-auto aspect-[16/10] object-cover"
                   loading="lazy"

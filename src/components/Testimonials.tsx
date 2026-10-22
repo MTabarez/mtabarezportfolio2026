@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SiteMode } from '../types';
 import { TESTIMONIALS } from '../data/testimonials';
-import { Quote, Star } from 'lucide-react';
+import { Quote } from 'lucide-react';
 import { getTranslation } from '../data/translations';
 
 interface TestimonialsProps {
@@ -63,16 +63,15 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
           </p>
         </div>
 
-        {/* Superpuestas (Overlapping) Review Cards with Flying Stars on Hover */}
-        <div className="relative flex flex-col md:flex-row items-center justify-center pt-8 pb-10">
+        {/* Stakeholder cards: horizontal sliding track on mobile, overlapping geometry on desktop */}
+        <div className="relative flex flex-row md:items-center md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory pt-8 pb-10 px-4 -mx-4 sm:mx-0 sm:px-0 gap-4 md:gap-0 no-scrollbar">
           {TESTIMONIALS.slice(0, 3).map((testimonial, idx) => {
             const isHovered = activeCardIndex === idx;
             const themeColor = mode === 'latam'
               ? latamColors[idx % latamColors.length]
               : intlColors[idx % intlColors.length];
 
-            // Superpuestas overlapping geometry:
-            // Resting rotation: -3deg, 1.5deg, -2deg
+            // Overlapping geometry for desktop
             const baseRotations = [-3, 2, -2.5];
             const rotation = isHovered ? 0 : baseRotations[idx];
 
@@ -84,17 +83,14 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
                 style={{
                   backgroundColor: themeColor.bg,
                   color: themeColor.text,
-                  transform: `translateY(${isHovered ? '-18px' : '0px'}) rotate(${rotation}deg) scale(${isHovered ? 1.05 : 0.98})`,
                   zIndex: isHovered ? 30 : 10 + idx,
-                  transition: 'transform 360ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease, opacity 300ms ease',
-                  willChange: 'transform',
                 }}
-                className={`relative w-full md:w-[380px] lg:w-[420px] p-8 sm:p-10 rounded-[36px] border border-[var(--card-border)] cursor-pointer flex flex-col justify-between min-h-[400px] sm:min-h-[440px] select-none ${
-                  idx !== 0 ? 'md:-ml-12 lg:-ml-16 mt-6 md:mt-0' : ''
-                } ${
+                className={`relative shrink-0 w-[85vw] max-w-[340px] md:w-[380px] lg:w-[420px] p-7 sm:p-10 rounded-[32px] sm:rounded-[36px] border border-[var(--card-border)] cursor-pointer flex flex-col justify-between min-h-[380px] sm:min-h-[440px] select-none snap-center transition-all duration-300 ${
+                  idx !== 0 ? 'md:-ml-12 lg:-ml-16' : ''
+                } md:[transform:translateY(${isHovered ? '-18px' : '0px'})_rotate(${rotation}deg)_scale(${isHovered ? 1.05 : 0.98})] ${
                   isHovered
                     ? 'shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] ring-2 ring-white/30 opacity-100'
-                    : 'shadow-xl opacity-90 hover:opacity-100'
+                    : 'shadow-xl opacity-95 hover:opacity-100'
                 }`}
               >
                 {/* Sprinkle Bomb Explosion (estrellitas saltando y volando como bomba de sprinkles) */}
@@ -124,14 +120,9 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
                 )}
 
                 <div>
-                  {/* Top Quote Icon & Stars */}
+                  {/* Top Quote Icon */}
                   <div className="flex items-center justify-between mb-8">
                     <Quote style={{ color: themeColor.quote }} className="w-8 h-8 opacity-80" />
-                    <div className="flex items-center gap-1 text-[#F6D332]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current stroke-none" />
-                      ))}
-                    </div>
                   </div>
 
                   {/* Quote Text (Bilingual) */}
@@ -157,6 +148,13 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ mode }) => {
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile Swipe Indicator Dots */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 -mt-4 pb-4">
+          <span className="text-[11px] font-semibold text-[var(--text-secondary)]/60">
+            {mode === 'latam' ? '← Desliza para ver más →' : '← Swipe to view more →'}
+          </span>
         </div>
       </div>
     </section>

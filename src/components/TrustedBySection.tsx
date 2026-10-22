@@ -249,13 +249,13 @@ export const TrustedBySection: React.FC<TrustedBySectionProps> = ({ mode }) => {
   return (
     <section
       id="clients"
-      aria-label={isLatam ? 'Marcas que Confían en Marianne' : 'Trusted by Global Brands & Teams'}
+      aria-label={isLatam ? 'Marcas y Plataformas' : 'Brands & Platforms'}
       className="py-20 sm:py-28 relative overflow-hidden bg-[var(--bg-main)] border-y border-[var(--card-border)] select-none"
     >
       {/* Section Header: Subtitle removed, title occupies 100% container width */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 mb-10 sm:mb-14 w-full">
         <h2 className="heading-1 text-[var(--text-primary)] w-full">
-          {isLatam ? 'Marcas que Confían en Marianne' : 'Trusted by Global Brands & Teams'}
+          {isLatam ? 'Marcas y Plataformas' : 'Brands & Platforms'}
         </h2>
       </div>
 

@@ -1,4 +1,8 @@
 import { Project } from '../types';
+import uvaImg from '../assets/images/project_uva_portal_1790825391354.jpg';
+import watkinsImg from '../assets/images/watkins_spices_extracts_1790905438980.jpg';
+import sunshineImg from '../assets/images/project_sunshine_supply_1790825415084.jpg';
+import aprilImg from '../assets/images/project_april_cornell_1790825425127.jpg';
 
 export const PROJECTS: Project[] = [
   {
@@ -14,7 +18,7 @@ export const PROJECTS: Project[] = [
     role: 'Lead UX/UI Designer (Tavano Team)',
     roleEs: 'Diseñadora UX/UI Principal (Tavano Team)',
     summary:
-      'Enterprise digital store redesign and multi-audience information architecture for one of America’s premier universities, unifying student, alumni, and athletic fans under a seamless, high-converting digital storefront.',
+      'Enterprise digital store redesign and multi-audience information architecture for one of America’s premier universities, unifying student, alumni, and athletic fans under a seamless digital storefront.',
     summaryEs:
       'Rediseño integral de la tienda digital y arquitectura de información para una de las universidades más prestigiosas de EE.UU., unificando la experiencia de estudiantes, exalumnos y fanáticos.',
     deliverables: [
@@ -30,7 +34,7 @@ export const PROJECTS: Project[] = [
       'Flujo de Checkout de Alta Conversión',
     ],
     tools: ['Figma', 'BigCommerce Stencil', 'NetSuite SuiteCommerce', 'Design Tokens', 'Prototyping'],
-    image: '/src/assets/images/project_uva_portal_1790825391354.jpg',
+    image: uvaImg,
     imageAlt: 'University of Virginia digital web portal and merchandise e-commerce store interface on laptop',
     layoutType: 'wide',
     accentColor: '#E57200',
@@ -113,10 +117,10 @@ export const PROJECTS: Project[] = [
     category: 'Gourmet Food, Spices & DTC/B2B E-Commerce',
     categoryEs: 'Alimentos Gourmet, Especias y E-Commerce DTC/B2B',
     year: '2024',
-    role: 'Senior Web & UX/UI Designer (Tavano Team)',
-    roleEs: 'Diseñadora Senior Web y UX/UI (Tavano Team)',
+    role: 'Web & UX/UI Designer (Tavano Team)',
+    roleEs: 'Diseñadora Web y UX/UI (Tavano Team)',
     summary:
-      'High-converting digital flagship for America’s pioneer gourmet spices and extracts brand, translating 150+ years of heritage pantry craftsmanship into an intuitive modern shopping experience on BigCommerce & NetSuite.',
+      'Digital flagship for America’s pioneer gourmet spices and extracts brand, translating 150+ years of heritage pantry craftsmanship into an intuitive modern shopping experience on BigCommerce & NetSuite.',
     summaryEs:
       'Plataforma digital insignia para la marca pionera de especias gourmet y extractos naturales de EE.UU., traduciendo más de 150 años de tradición culinaria en una experiencia e-commerce moderna en BigCommerce y NetSuite.',
     deliverables: [
@@ -132,7 +136,7 @@ export const PROJECTS: Project[] = [
       'Arquitectura de Suscripciones y Rellenos de Despensa',
     ],
     tools: ['Figma', 'BigCommerce', 'NetSuite SuiteCommerce', 'Design Systems', 'Culinary UI'],
-    image: '/src/assets/images/watkins_spices_extracts_1790905438980.jpg',
+    image: watkinsImg,
     imageAlt: 'Watkins 1868 heritage gourmet spices, organic vanilla extract jars and seasonings on modern e-commerce storefront',
     layoutType: 'split',
     accentColor: '#8C3B1E',
@@ -211,8 +215,8 @@ export const PROJECTS: Project[] = [
     category: 'Enterprise B2B E-Commerce & Systems',
     categoryEs: 'E-Commerce B2B Enterprise y Sistemas',
     year: '2023',
-    role: 'Senior Web & UX/UI Designer (Tavano Team)',
-    roleEs: 'Diseñadora Senior Web y UX/UI (Tavano Team)',
+    role: 'Web & UX/UI Designer (Tavano Team)',
+    roleEs: 'Diseñadora Web y UX/UI (Tavano Team)',
     summary:
       'Robust B2B commerce platform and multi-tier contractor portal for construction and waterproofing materials, enabling commercial contractors to order bulk job-site materials with instant tier pricing and specification sheets.',
     summaryEs:
@@ -230,7 +234,7 @@ export const PROJECTS: Project[] = [
       'Implementación Personalizada en NetSuite SuiteCommerce',
     ],
     tools: ['Figma', 'NetSuite SuiteCommerce', 'B2B UX', 'Information Architecture'],
-    image: '/src/assets/images/project_sunshine_supply_1790825415084.jpg',
+    image: sunshineImg,
     imageAlt: 'Sunshine Supply construction B2B e-commerce platform interface on desktop',
     layoutType: 'accent',
     accentColor: '#FFB81C',
@@ -309,8 +313,8 @@ export const PROJECTS: Project[] = [
     category: 'Lifestyle Fashion & Heritage E-Commerce',
     categoryEs: 'Moda, Estilo de Vida y Textiles',
     year: '2023',
-    role: 'Senior Web & UX/UI Designer (Tavano Team)',
-    roleEs: 'Diseñadora Senior Web y UX/UI (Tavano Team)',
+    role: 'Web & UX/UI Designer (Tavano Team)',
+    roleEs: 'Diseñadora Web y UX/UI (Tavano Team)',
     summary:
       'Artistic e-commerce redesign for April Cornell’s beloved vintage-inspired botanical fashion and handcrafted table linens, balancing intricate artisanal textile storytelling with modern e-commerce velocity.',
     summaryEs:
@@ -328,7 +332,7 @@ export const PROJECTS: Project[] = [
       'Tema Personalizado en BigCommerce Stencil',
     ],
     tools: ['Figma', 'BigCommerce Stencil', 'Editorial Art Direction', 'Responsive Design'],
-    image: '/src/assets/images/project_april_cornell_1790825425127.jpg',
+    image: aprilImg,
     imageAlt: 'April Cornell artisanal floral lifestyle fashion e-commerce storefront on desktop display',
     layoutType: 'split',
     accentColor: '#C45D76',
@@ -382,7 +386,7 @@ export const PROJECTS: Project[] = [
         'Módulos modulares para encargar manteles, servilletas y caminos de mesa coordinados en un solo paso.',
       ],
       solution:
-        'A poetic, high-converting digital storefront on BigCommerce Stencil that celebrates handcrafted artistry while accelerating mobile conversion and multi-item basket size.',
+        'A poetic digital storefront on BigCommerce Stencil that celebrates handcrafted artistry while accelerating mobile conversion and multi-item basket size.',
       solutionEs:
         'Una tienda digital cálida y de alta conversión sobre BigCommerce Stencil que rinde homenaje a la artesanía textil e impulsa el ticket promedio.',
       impact: [

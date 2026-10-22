@@ -14,7 +14,7 @@ export const CV_DATA = {
   experiences: [
     {
       period: '2020 — 2025',
-      role: 'Senior Web UX/UI Designer',
+      role: 'Web & UX/UI Designer',
       company: 'Tavano Team',
       location: 'US & Europe Clients (Remote)',
       bullets: [
