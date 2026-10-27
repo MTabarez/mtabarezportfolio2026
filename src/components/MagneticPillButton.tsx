@@ -20,50 +20,47 @@ export const MagneticPillButton: React.FC<MagneticPillButtonProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Variant styles: Pill ONLY wraps text; Circle sits outside
+  // Exact brand colors matching user reference image: #9faf23
   const variantStyles = {
     primary: {
-      pill: 'bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] border border-transparent hover:bg-[#121212]',
-      badge: 'border border-[var(--card-border)] bg-[var(--card-surface)] text-[var(--text-primary)]',
-      badgeHover: 'bg-[#D4FF32] text-[#121212] border-[#D4FF32]',
+      pill: 'bg-[#9faf23] text-[#121212] hover:bg-[#a9bc27] shadow-sm',
+      arrowCircle: 'bg-[#9faf23] text-[#121212] shadow-sm',
     },
     secondary: {
-      pill: 'border border-[var(--card-border)] bg-transparent text-[var(--text-primary)] hover:border-black/50 dark:hover:border-white/50',
-      badge: 'border border-[var(--card-border)] bg-[var(--card-surface)] text-[var(--text-primary)]',
-      badgeHover: 'bg-[#121212] text-white border-[#121212] dark:bg-white dark:text-black',
+      pill: 'border border-[var(--card-border)] bg-transparent text-[var(--text-primary)] hover:border-[#9faf23] hover:text-[#9faf23] dark:hover:border-[#9faf23]',
+      arrowCircle: '',
     },
     accent: {
-      pill: 'bg-[#2454FF] text-white border border-[#2454FF] hover:bg-[#1A44D8]',
-      badge: 'border border-[var(--card-border)] bg-white text-[#121212]',
-      badgeHover: 'bg-[#D4FF32] text-[#121212] border-[#D4FF32]',
+      pill: 'bg-[#9faf23] text-[#121212] hover:bg-[#a9bc27] shadow-sm',
+      arrowCircle: 'bg-[#9faf23] text-[#121212] shadow-sm',
     },
     latam: {
-      pill: 'bg-[#0D5C46] text-white border border-[#0D5C46] hover:bg-[#094735]',
-      badge: 'border border-[#0D5C46]/20 bg-[#F6D332] text-[#0D5C46]',
-      badgeHover: 'bg-[#E85338] text-white border-[#E85338]',
+      pill: 'bg-[#9faf23] text-[#121212] hover:bg-[#a9bc27] shadow-sm',
+      arrowCircle: 'bg-[#9faf23] text-[#121212] shadow-sm',
     },
   }[variant];
 
+  // Exact same outer heights and padding across all variants for consistency
   const sizeStyles = {
     sm: {
-      pill: 'py-2 px-4 text-xs font-bold',
-      badge: 'w-7 h-7',
-      icon: 'w-3 h-3',
-      separation: 'translateX(6px)',
+      pill: 'h-9 px-4 text-xs font-semibold',
+      circle: 'w-9 h-9',
+      icon: 'w-3.5 h-3.5',
     },
     md: {
-      pill: 'py-2.5 px-5 sm:py-3 sm:px-6 text-xs sm:text-sm font-bold',
-      badge: 'w-8 h-8 sm:w-9 sm:h-9',
-      icon: 'w-3.5 h-3.5 sm:w-4 sm:h-4',
-      separation: 'translateX(8px)',
+      pill: 'h-11 sm:h-12 px-5 sm:px-6 text-xs sm:text-sm font-semibold',
+      circle: 'w-11 h-11 sm:w-12 sm:h-12',
+      icon: 'w-4 h-4',
     },
     lg: {
-      pill: 'py-3.5 px-6 sm:py-4 sm:px-8 text-sm sm:text-base font-bold',
-      badge: 'w-10 h-10 sm:w-11 sm:h-11',
-      icon: 'w-4 h-4 sm:w-5 sm:h-5',
-      separation: 'translateX(10px)',
+      pill: 'h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-semibold',
+      circle: 'w-12 h-12 sm:w-14 sm:h-14',
+      icon: 'w-4.5 h-4.5',
     },
   }[size];
+
+  // Primary, accent, and latam have arrow; secondary NEVER has arrow
+  const hasArrow = variant !== 'secondary';
 
   return (
     <button
@@ -71,36 +68,50 @@ export const MagneticPillButton: React.FC<MagneticPillButtonProps> = ({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative inline-flex items-center gap-2 cursor-pointer select-none outline-hidden ${className}`}
+      className={'group relative inline-flex items-center cursor-pointer select-none outline-none transition-all duration-300 ' + className}
     >
-      {/* 1. Pill container: ONLY surrounds the text */}
+      {/* 1. Main Button Pill (Encloses text + resting arrow inside in default state) */}
       <span
-        className={`rounded-full tracking-wide transition-all duration-300 shadow-xs group-hover:shadow-md ${variantStyles.pill} ${sizeStyles.pill}`}
+        className={'relative z-10 inline-flex items-center justify-center rounded-full transition-all duration-300 ' + variantStyles.pill + ' ' + sizeStyles.pill}
       >
-        {children}
+        <span className="leading-none tracking-normal first-letter:uppercase lowercase inline-block">
+          {children}
+        </span>
+
+        {/* Resting arrow: nestled INSIDE the button pill, angled at -45° in default state */}
+        {hasArrow && (
+          <span
+            style={{
+              width: isHovered ? 0 : 'auto',
+              marginLeft: isHovered ? 0 : '0.625rem',
+              opacity: isHovered ? 0 : 1,
+              transform: isHovered ? 'scale(0.4) translateX(-8px)' : 'scale(1) translateX(0)',
+              transition: 'width 280ms cubic-bezier(0.16, 1, 0.3, 1), margin-left 280ms ease, opacity 200ms ease, transform 280ms ease',
+              overflow: 'hidden',
+            }}
+            className="inline-flex items-center justify-center text-current shrink-0"
+          >
+            <ArrowRight className={sizeStyles.icon + ' -rotate-45 stroke-[2.5]'} />
+          </span>
+        )}
       </span>
 
-      {/* 2. Detachable Circle Badge: Sits outside the pill, and separates further on hover */}
-      <span
-        style={{
-          transform: isHovered ? `${sizeStyles.separation} scale(1.08)` : 'translateX(0px) scale(1)',
-          transition: 'transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease, border-color 200ms ease',
-        }}
-        className={`${sizeStyles.badge} rounded-full flex items-center justify-center shrink-0 shadow-xs transition-colors ${
-          isHovered ? variantStyles.badgeHover : variantStyles.badge
-        }`}
-      >
+      {/* 2. On Hover: The arrow detaches completely from the pill container, leaves distinct gap, and forms a 100% round circular badge with straight arrow */}
+      {hasArrow && (
         <span
           style={{
-            // Arrow starts angled at -45° (up-right) and straightens out to 0° (horizontal) on hover
-            transform: isHovered ? 'rotate(0deg)' : 'rotate(-45deg)',
-            transition: 'transform 280ms cubic-bezier(0.16, 1, 0.3, 1)',
-            display: 'inline-flex',
+            marginLeft: isHovered ? '0.625rem' : '0rem',
+            width: isHovered ? undefined : '0px',
+            opacity: isHovered ? 1 : 0,
+            transform: isHovered ? 'scale(1) translateX(0px)' : 'scale(0) translateX(-16px)',
+            pointerEvents: isHovered ? 'auto' : 'none',
+            transition: 'all 320ms cubic-bezier(0.16, 1, 0.3, 1)',
           }}
+          className={sizeStyles.circle + ' rounded-full aspect-square flex items-center justify-center shrink-0 ' + variantStyles.arrowCircle}
         >
-          <ArrowRight className={`${sizeStyles.icon} stroke-[2.5]`} />
+          <ArrowRight className={sizeStyles.icon + ' stroke-[2.5] rotate-0 transition-transform duration-300'} />
         </span>
-      </span>
+      )}
     </button>
   );
 };

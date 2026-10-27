@@ -53,7 +53,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
               {/* Top Meta */}
               <div className="relative z-10 flex items-center justify-between text-white">
                 <div className="flex items-center gap-3">
-                  <span className="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-white">
+                  <span className="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold text-white">
                     {isLatam && PROJECTS[0].categoryEs ? PROJECTS[0].categoryEs : PROJECTS[0].category}
                   </span>
                 </div>
@@ -78,7 +78,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                     {(isLatam && PROJECTS[0].deliverablesEs ? PROJECTS[0].deliverablesEs : PROJECTS[0].deliverables).slice(0, 3).map((d) => (
                       <span
                         key={d}
-                        className="text-xs font-bold px-3 py-1 rounded-full bg-white/15 backdrop-blur-xs text-white"
+                        className="text-xs font-semibold px-3 py-1 rounded-full bg-white/15 backdrop-blur-xs text-white"
                       >
                         {d}
                       </span>
@@ -114,7 +114,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                     loading="lazy"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute top-5 left-5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider">
+                  <div className="absolute top-5 left-5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-semibold">
                     {isLatam && PROJECTS[1].categoryEs ? PROJECTS[1].categoryEs : PROJECTS[1].category}
                   </div>
                 </div>
@@ -133,7 +133,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-[var(--card-border)] flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                    <span className="text-xs font-semibold text-[var(--text-secondary)]">
                       SuiteCommerce & 3D Configurator
                     </span>
                     <MagneticPillButton
@@ -148,44 +148,67 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
               </div>
             )}
 
-            {/* Card 3: 5 COLS Compact & Contrasting (Sunshine Supply) */}
+            {/* Card 3: 5 COLS Compact & Contrasting (Sunshine Supply) - Project image next to text with tags */}
             {PROJECTS[2] && (
               <div
                 data-cursor="view"
                 onClick={() => setSelectedProject(PROJECTS[2])}
                 style={{
-                  backgroundColor: mode === 'latam' ? '#0D5C46' : '#121212',
+                  backgroundColor: mode === 'latam' ? '#0D5C46' : '#141414',
                   color: '#FFFFFF',
                 }}
-                className="lg:col-span-5 group rounded-[36px] sm:rounded-[44px] border border-[var(--card-border)] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between p-8 sm:p-10"
+                className="lg:col-span-5 group rounded-[36px] sm:rounded-[44px] border border-[var(--card-border)] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between p-7 sm:p-9"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-white">
+                  {/* Category Pill */}
+                  <div className="mb-4">
+                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold text-white">
                       {isLatam && PROJECTS[2].categoryEs ? PROJECTS[2].categoryEs : PROJECTS[2].category}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white group-hover:text-[#D4FF32] transition-colors">
-                    {isLatam && PROJECTS[2].titleEs ? PROJECTS[2].titleEs : PROJECTS[2].title}
-                  </h3>
-                  <p className="mt-1 text-sm font-bold text-white/80">
-                    {isLatam && PROJECTS[2].subtitleEs ? PROJECTS[2].subtitleEs : PROJECTS[2].subtitle}
-                  </p>
-                  <p className="mt-4 text-sm text-white/80 leading-relaxed">
+                  {/* Header: Project Image beside Title & Subtitle */}
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white group-hover:text-[#8ee000] transition-colors">
+                        {isLatam && PROJECTS[2].titleEs ? PROJECTS[2].titleEs : PROJECTS[2].title}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm font-semibold text-white/80">
+                        {isLatam && PROJECTS[2].subtitleEs ? PROJECTS[2].subtitleEs : PROJECTS[2].subtitle}
+                      </p>
+                    </div>
+
+                    {/* Square Image with Rounded Corners next to the text */}
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border border-white/20 shadow-md">
+                      <img
+                        src={PROJECTS[2].image}
+                        alt={PROJECTS[2].title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  </div>
+
+                  <p className="mt-2 text-sm text-white/80 leading-relaxed line-clamp-3">
                     {isLatam && PROJECTS[2].summaryEs ? PROJECTS[2].summaryEs : PROJECTS[2].summary}
                   </p>
+
+                  {/* Project tags just like other cases */}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {(isLatam && PROJECTS[2].deliverablesEs ? PROJECTS[2].deliverablesEs : PROJECTS[2].deliverables).slice(0, 3).map((d) => (
+                      <span
+                        key={d}
+                        className="text-xs font-semibold px-3 py-1 rounded-full bg-white/15 backdrop-blur-xs text-white"
+                      >
+                        {d}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/15 flex items-center justify-between">
-                  <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-white/20">
-                    <img
-                      src={PROJECTS[2].image}
-                      alt={PROJECTS[2].title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
+                  <span className="text-xs font-semibold text-white/70">
+                    NetSuite SuiteCommerce B2B
+                  </span>
                   <MagneticPillButton
                     onClick={() => setSelectedProject(PROJECTS[2])}
                     variant={mode === 'latam' ? 'latam' : 'accent'}
@@ -213,7 +236,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
                   loading="lazy"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-6 left-6 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider">
+                <div className="absolute top-6 left-6 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-semibold">
                   {isLatam && PROJECTS[3].categoryEs ? PROJECTS[3].categoryEs : PROJECTS[3].category}
                 </div>
               </div>
@@ -221,7 +244,7 @@ export const Projects: React.FC<ProjectsProps> = ({ mode }) => {
               <div className="lg:col-span-7 p-8 sm:p-12 md:p-14 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent-main)]">
+                    <span className="text-xs font-semibold text-[var(--accent-main)]">
                       {PROJECTS[3].year}
                     </span>
                   </div>

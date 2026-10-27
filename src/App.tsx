@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { FloatingMenu } from './components/FloatingMenu';
 import { AccessibilityPanel } from './components/AccessibilityPanel';
 import { Hero } from './components/Hero';
+import { WordHoverEffect } from './components/WordHoverEffect';
 import { Projects } from './components/Projects';
 import { Services } from './components/Services';
 import { TrustedBySection } from './components/TrustedBySection';
@@ -158,6 +159,9 @@ export default function App() {
             onContactClick={scrollToContact}
           />
         </div>
+
+        {/* Interactive Highlight Words Section */}
+        <WordHoverEffect mode={mode} />
 
         {/* 2. Selected Work Projects Grid (Clean Gallery Canvas) */}
         <div className="bg-[#FFFFFF] dark:bg-[#121212] transition-colors duration-500">

@@ -249,19 +249,19 @@ export const TrustedBySection: React.FC<TrustedBySectionProps> = ({ mode }) => {
   return (
     <section
       id="clients"
-      aria-label={isLatam ? 'Marcas y Plataformas' : 'Brands & Platforms'}
+      aria-label={isLatam ? 'Clientes que confiaron en mí' : 'Clients who trusted in me'}
       className="py-20 sm:py-28 relative overflow-hidden bg-[var(--bg-main)] border-y border-[var(--card-border)] select-none"
     >
-      {/* Section Header: Subtitle removed, title occupies 100% container width */}
+      {/* Section Header */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 mb-10 sm:mb-14 w-full">
         <h2 className="heading-1 text-[var(--text-primary)] w-full">
-          {isLatam ? 'Marcas y Plataformas' : 'Brands & Platforms'}
+          {isLatam ? 'Clientes que confiaron en mí' : 'Clients who trusted in me'}
         </h2>
       </div>
 
-      {/* Row 1: Sliding Left (Continuous Marquee with Normalized Logo Heights) */}
+      {/* Row 1: Sliding Left (Super Fast: 5s mobile, 9s desktop) */}
       <div className="w-full overflow-hidden py-2.5">
-        <div className="flex whitespace-nowrap gap-5 sm:gap-6 animate-[marquee_34s_linear_infinite] will-change-transform">
+        <div className="flex whitespace-nowrap gap-5 sm:gap-6 animate-[marquee_5s_linear_infinite] md:animate-[marquee_9s_linear_infinite] will-change-transform">
           {[...row1, ...row1, ...row1].map((brand, idx) => (
             <div
               key={`r1-${idx}`}
@@ -275,9 +275,9 @@ export const TrustedBySection: React.FC<TrustedBySectionProps> = ({ mode }) => {
         </div>
       </div>
 
-      {/* Row 2: Sliding Right (Opposite Direction Marquee with Normalized Logo Heights) */}
+      {/* Row 2: Sliding Right (Super Fast: 5.5s mobile, 10s desktop) */}
       <div className="w-full overflow-hidden py-2.5 mt-3 sm:mt-4">
-        <div className="flex whitespace-nowrap gap-5 sm:gap-6 animate-[marquee-reverse_36s_linear_infinite] will-change-transform">
+        <div className="flex whitespace-nowrap gap-5 sm:gap-6 animate-[marquee-reverse_5.5s_linear_infinite] md:animate-[marquee-reverse_10s_linear_infinite] will-change-transform">
           {[...row2, ...row2, ...row2].map((brand, idx) => (
             <div
               key={`r2-${idx}`}

@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Hanken Grotesk', 'PP Neue Montreal', 'Untitled Sans', 'F37 Bolton', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     
     /* Radii tokens */
     --radius-sm: 12px;
@@ -19,9 +19,9 @@
     --card-surface: #FFFFFF;
     --card-border: rgba(18, 18, 18, 0.09);
     --card-hover-border: rgba(18, 18, 18, 0.25);
-    --accent-main: #2454FF;
-    --accent-contrast: #FFFFFF;
-    --accent-secondary: #D4FF32;
+    --accent-main: #9faf23;
+    --accent-contrast: #121212;
+    --accent-secondary: #9faf23;
     --accent-secondary-text: #121212;
     --hero-sticker-bg: #121212;
     --hero-sticker-text: #FFFFFF;
@@ -31,8 +31,8 @@
     --footer-card-bg: #1A1A1A;
     --btn-primary-bg: #121212;
     --btn-primary-text: #FFFFFF;
-    --btn-primary-hover-bg: #2454FF;
-    --btn-primary-hover-text: #FFFFFF;
+    --btn-primary-hover-bg: #9faf23;
+    --btn-primary-hover-text: #121212;
     
     /* Layout */
     --max-content-width: 1440px;
@@ -63,29 +63,29 @@
     --btn-primary-hover-text: #FFFFFF;
   }
 
-  /* Dark Theme */
+  /* Dark Theme - #1c1c1c as requested (except high contrast) */
   [data-theme="dark"] {
-    --bg-main: #0E0E0E;
+    --bg-main: #1c1c1c;
     --text-primary: #F6F4EE;
-    --text-secondary: #A09F9B;
-    --text-tertiary: #6E6D69;
-    --card-surface: #181818;
+    --text-secondary: #B0AFA9;
+    --text-tertiary: #7E7D77;
+    --card-surface: #242424;
     --card-border: rgba(255, 255, 255, 0.12);
     --card-hover-border: rgba(255, 255, 255, 0.3);
-    --accent-main: #D4FF32;
-    --accent-contrast: #0E0E0E;
-    --accent-secondary: #2454FF;
-    --accent-secondary-text: #FFFFFF;
-    --hero-sticker-bg: #D4FF32;
-    --hero-sticker-text: #0E0E0E;
-    --nav-bg: rgba(14, 14, 14, 0.90);
-    --footer-bg: #080808;
+    --accent-main: #9faf23;
+    --accent-contrast: #1c1c1c;
+    --accent-secondary: #9faf23;
+    --accent-secondary-text: #1c1c1c;
+    --hero-sticker-bg: #9faf23;
+    --hero-sticker-text: #1c1c1c;
+    --nav-bg: rgba(28, 28, 28, 0.96);
+    --footer-bg: #141414;
     --footer-text: #F6F4EE;
-    --footer-card-bg: #141414;
+    --footer-card-bg: #1f1f1f;
     --btn-primary-bg: #F6F4EE;
-    --btn-primary-text: #0E0E0E;
-    --btn-primary-hover-bg: #D4FF32;
-    --btn-primary-hover-text: #0E0E0E;
+    --btn-primary-text: #1c1c1c;
+    --btn-primary-hover-bg: #9faf23;
+    --btn-primary-hover-text: #1c1c1c;
   }
 
   /* High Contrast */

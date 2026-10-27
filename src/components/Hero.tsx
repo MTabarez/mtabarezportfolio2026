@@ -33,7 +33,7 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
               {t.hero.bio}
             </p>
 
-            {/* CTAs: Featured with signature detachable arrow badge button */}
+            {/* CTAs: Featured with signature detachable arrow badge button (Consistent sizes) */}
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
               <MagneticPillButton
                 onClick={onExploreWork}
@@ -43,12 +43,13 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
                 {t.hero.ctaWork}
               </MagneticPillButton>
 
-              <button
+              <MagneticPillButton
                 onClick={onContactClick}
-                className="px-7 py-3.5 sm:py-4 rounded-full border border-[var(--card-border)] bg-transparent hover:bg-[var(--text-primary)] hover:text-[var(--bg-main)] text-[var(--text-primary)] font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 cursor-pointer"
+                variant="secondary"
+                size="lg"
               >
                 {t.hero.ctaContact}
-              </button>
+              </MagneticPillButton>
             </div>
           </div>
 
@@ -73,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
 
                 <div className="absolute bottom-6 left-6 right-6 text-white flex items-end justify-between">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#D4FF32] block mb-1">
+                    <span className="text-xs font-semibold text-[#8ee000] block mb-1">
                       {t.hero.featuredBadge}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-black tracking-tight">
@@ -89,13 +90,13 @@ export const Hero: React.FC<HeroProps> = ({ mode, onExploreWork, onContactClick 
               {/* Floating Pill Sticker: Design Philosophy */}
               <div
                 style={{
-                  backgroundColor: mode === 'latam' ? '#0D5C46' : 'var(--hero-sticker-bg)',
-                  color: mode === 'latam' ? '#F6D332' : 'var(--hero-sticker-text)',
+                  backgroundColor: mode === 'latam' ? '#5c9c0b' : 'var(--hero-sticker-bg)',
+                  color: mode === 'latam' ? '#FFFFFF' : 'var(--hero-sticker-text)',
                 }}
                 className="absolute -bottom-6 -left-4 sm:-left-8 px-5 py-3 rounded-full shadow-2xl border border-white/20 flex items-center gap-3 backdrop-blur-md"
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#D4FF32] animate-pulse" />
-                <span className="text-xs font-black tracking-wider uppercase">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#8ee000] animate-pulse" />
+                <span className="text-xs font-bold">
                   {t.hero.stickerText}
                 </span>
               </div>

@@ -11,8 +11,8 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
-  const [isJumping, setIsJumping] = useState(false);
-  const [jumpCount, setJumpCount] = useState(0);
+  const [isHappy, setIsHappy] = useState(false);
+  const [interactionCount, setInteractionCount] = useState(0);
   const [isStretched, setIsStretched] = useState(false);
   const [speechPhrase, setSpeechPhrase] = useState<string | null>(null);
   const footerRef = useRef<HTMLElement>(null);
@@ -24,28 +24,22 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
     '¡Hagamos magia! ✨',
     'Ready to design! 🎨',
     '¡Hablemos de UX! 💬',
-    'Super jump! ✦',
+    '¡Mucho gusto! ✦',
   ];
 
-  // Trigger jump action and single-run text streaming
-  const triggerJump = () => {
-    if (isJumping || isStretched) return;
-    setIsJumping(true);
-    setJumpCount((c) => c + 1);
+  // Trigger happy status change and speech without jumping
+  const triggerHappy = () => {
+    setIsHappy(true);
+    setInteractionCount((c) => c + 1);
     setIsStretched(true);
-    setSpeechPhrase(phrases[jumpCount % phrases.length]);
+    setSpeechPhrase(phrases[interactionCount % phrases.length]);
 
-    // Character jump animation duration
-    setTimeout(() => {
-      setIsJumping(false);
-    }, 600);
-
-    // Safety fallback to close mouth if onAnimationEnd doesn't fire
     if (streamTimeoutRef.current) clearTimeout(streamTimeoutRef.current);
     streamTimeoutRef.current = window.setTimeout(() => {
+      setIsHappy(false);
       setIsStretched(false);
       setSpeechPhrase(null);
-    }, 4000);
+    }, 3500);
   };
 
   useEffect(() => {
@@ -57,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
         document.activeElement?.tagName !== 'TEXTAREA'
       ) {
         e.preventDefault();
-        triggerJump();
+        triggerHappy();
       }
     };
 
@@ -66,13 +60,14 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
       window.removeEventListener('keydown', handleKeyDown);
       if (streamTimeoutRef.current) clearTimeout(streamTimeoutRef.current);
     };
-  }, [isJumping, isStretched, jumpCount]);
+  }, [isHappy, isStretched, interactionCount]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const isLatam = mode === 'latam';
+  const showHappyAvatar = isHappy || isStretched || Boolean(speechPhrase);
 
   return (
     <footer
@@ -84,150 +79,110 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
       }}
       className="pt-24 sm:pt-32 pb-16 sm:pb-20 rounded-t-[40px] sm:rounded-t-[56px] transition-colors duration-300 relative overflow-hidden"
     >
-      {/* 1. GIGANTIC CIRCULATING MARQUEE WITH MARIANNE'S NAME */}
-      <div className="w-full overflow-hidden py-4 border-b border-white/10 select-none opacity-80 hover:opacity-100 transition-opacity">
-        <div className="flex whitespace-nowrap animate-[marquee_24s_linear_infinite]">
-          {[...Array(4)].map((_, i) => (
+      {/* 1. GIGANTIC CIRCULATING MARQUEE: MARIANNE TABAREZ ARISTEGUI in fast, eternal seamless loop */}
+      <div className="w-full overflow-hidden py-4 border-b border-white/10 select-none opacity-85 hover:opacity-100 transition-opacity">
+        <div className="flex w-max whitespace-nowrap animate-[marquee_7s_linear_infinite] will-change-transform">
+          {[...Array(6)].map((_, i) => (
             <span
-              key={i}
-              className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter text-transparent uppercase stroke-white stroke-2 mx-8"
-              style={{
-                WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.45)',
-              }}
+              key={`mq-${i}`}
+              className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter text-white/20 uppercase mx-8 select-none transition-colors hover:text-white/35"
             >
-              MARIANNE TABAREZ &nbsp;✦&nbsp; CHILE / REMOTE &nbsp;✦&nbsp; UX/UI ARCHITECTURE &nbsp;✦&nbsp;
+              MARIANNE TABAREZ ARISTEGUI &nbsp;✦&nbsp; CHILE / REMOTE &nbsp;✦&nbsp; UX/UI ARCHITECTURE &nbsp;✦&nbsp;
+            </span>
+          ))}
+          {[...Array(6)].map((_, i) => (
+            <span
+              key={`mq-dup-${i}`}
+              className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter text-white/20 uppercase mx-8 select-none transition-colors hover:text-white/35"
+            >
+              MARIANNE TABAREZ ARISTEGUI &nbsp;✦&nbsp; CHILE / REMOTE &nbsp;✦&nbsp; UX/UI ARCHITECTURE &nbsp;✦&nbsp;
             </span>
           ))}
         </div>
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 mt-12 sm:mt-16">
-        {/* Playful Top Callout with Interactive Jumping Character */}
-        <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 sm:pb-16 border-b border-white/15">
-          <div className="space-y-4 flex-1 relative z-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#D4FF32] block">
+        {/* Playful Top Callout with Interactive Happy Avatar */}
+        <div className="pb-12 sm:pb-16 border-b border-white/15">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold text-[#8ee000]">
               {t.footer.kicker}
             </span>
-
-            {/* Title with "Let’s talk" */}
-            <div className="min-h-[90px] sm:min-h-[120px] flex items-center">
-              {!isStretched && (
-                <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white transition-all">
-                  {t.footer.letsTalk}
-                </h2>
-              )}
-            </div>
-
-            <p className="text-base sm:text-lg text-white/80 max-w-lg mt-2">
-              {isLatam
-                ? 'Disponible para roles de diseño de producto, sistemas de diseño enterprise y colaboraciones globales.'
-                : 'Available for product design roles, enterprise design systems, and select global engagements.'}
-            </p>
-          </div>
-
-          {/* STREAMING TEXT:
-              Single-run animation (runs once, then stops; no infinite loop).
-              Runs across the container with z-index (z-10) UNDERNEATH the character (macaco z-30),
-              shooting from the character's open mouth towards the left! */}
-          {isStretched && (
-            <div className="absolute inset-y-0 right-0 left-0 flex items-center pointer-events-none z-10 overflow-hidden">
-              <div
-                onAnimationEnd={() => {
-                  setIsStretched(false);
-                  setSpeechPhrase(null);
-                }}
-                className="flex whitespace-nowrap animate-[streamTextOnce_7s_linear_forwards] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none text-[#D4FF32] pr-12"
-              >
-                <span>
-                  {isLatam
-                    ? 'Hableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemos.'
-                    : 'Let’s taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalk.'}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* Interactive Character (MACACO):
-              Higher z-index (z-30), mouth stays open as long as isStretched is true! */}
-          <div className="flex flex-col items-center sm:items-end relative shrink-0 z-30">
-            {/* Dynamic Speech Bubble */}
-            {speechPhrase && (
-              <div className="absolute -top-12 sm:-top-14 right-4 sm:right-10 px-3.5 py-1.5 rounded-2xl bg-[#D4FF32] text-[#121212] font-black text-xs shadow-xl animate-in zoom-in-95 fade-in duration-200 whitespace-nowrap z-40">
-                {speechPhrase}
-                <div className="absolute top-full right-6 border-4 border-transparent border-t-[#D4FF32]" />
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={triggerJump}
-              aria-label="Haz clic o presiona espacio para saltar"
-              className="group relative cursor-pointer focus:outline-none p-3 select-none"
-            >
-              {/* Expressive Character with animated face */}
-              <div
-                style={{
-                  transform: isJumping
-                    ? 'translateY(-56px) rotate(10deg) scale(1.15)'
-                    : 'translateY(0) scale(1)',
-                  transition: 'transform 260ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                }}
-                className="w-22 h-22 sm:w-24 sm:h-24 rounded-[28px] bg-white text-black flex flex-col items-center justify-center shadow-2xl relative"
-              >
-                {/* Antennas / Ears */}
-                <div className="absolute -top-2 flex gap-6">
-                  <span className="w-2.5 h-3 rounded-full bg-[#D4FF32] border border-black/10" />
-                  <span className="w-2.5 h-3 rounded-full bg-[#D4FF32] border border-black/10" />
-                </div>
-
-                {/* Animated Eyes: wide open while mouth is open emitting text */}
-                <div className="flex items-center gap-3 mb-2">
-                  <span
-                    className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${
-                      isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'
-                    }`}
-                  />
-                  <span
-                    className={`w-2.5 h-2.5 rounded-full bg-black transition-all ${
-                      isStretched ? 'scale-125' : isJumping ? 'scale-y-25' : 'animate-pulse'
-                    }`}
-                  />
-                </div>
-
-                {/* Mouth: KEEPS OPEN UNTIL THE TEXT FINISHES PASSING (while isStretched is true!) */}
-                <div
-                  className={`transition-all duration-200 ${
-                    isStretched
-                      ? 'w-7 h-7 rounded-full bg-rose-500 border-2 border-black animate-pulse shadow-inner'
-                      : isJumping
-                      ? 'w-5 h-3.5 rounded-b-full bg-rose-500'
-                      : 'w-4 h-1.5 rounded-full bg-black'
-                  }`}
-                />
-
-                {/* Sparkle badge when jumping */}
-                {(isJumping || isStretched) && (
-                  <span className="absolute -top-4 -right-3 text-[#D4FF32] text-sm font-black animate-spin">
-                    ✦
-                  </span>
-                )}
-              </div>
-
-              {/* Character dynamic shadow underneath */}
-              <div
-                style={{
-                  transform: isJumping ? 'scale(0.35)' : 'scale(1)',
-                  opacity: isJumping ? 0.2 : 0.6,
-                  transition: 'all 260ms ease',
-                }}
-                className="w-16 h-2.5 rounded-full bg-black/60 mx-auto mt-2 blur-xs"
-              />
-            </button>
-
-            <span className="text-[11px] font-bold text-white/60 tracking-wider uppercase mt-1">
+            <span className="text-[11px] font-semibold text-white/60 tracking-wider">
               {t.footer.spacePrompt}
             </span>
           </div>
+
+          <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6">
+            {/* Title with "Let’s talk" / "Hableeeeeeeeeeeeeeeemos." when clicked */}
+            <div className="flex items-end min-h-[56px] sm:min-h-[80px] md:min-h-[96px]">
+              <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white transition-colors">
+                {isStretched ? (
+                  <span className="text-[#8ee000] inline-block tracking-tight">
+                    {isLatam
+                      ? 'Hableeeeeeeeeeeeeeeemos.'
+                      : 'Let’s taaaaaaaaaaaalk.'}
+                  </span>
+                ) : (
+                  <span>{t.footer.letsTalk}</span>
+                )}
+              </h2>
+            </div>
+
+            {/* Interactive Character: 100% aligned to the base of the image (NO helper text below it) */}
+            <div className="relative shrink-0 z-30 self-end">
+              {/* Dynamic Speech Bubble */}
+              {speechPhrase && (
+                <div className="absolute -top-12 sm:-top-14 right-2 sm:right-4 px-3.5 py-1.5 rounded-2xl bg-[#5c9c0b] text-white font-bold text-xs shadow-xl animate-in zoom-in-95 fade-in duration-200 whitespace-nowrap z-40">
+                  {speechPhrase}
+                  <div className="absolute top-full right-6 border-4 border-transparent border-t-[#5c9c0b]" />
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={triggerHappy}
+                aria-label="Haz clic para saludar a Marianne"
+                className="relative cursor-pointer focus:outline-none p-0 select-none block"
+              >
+                {/* Fixed size box: both images are ALWAYS absolute inset-0 so image NEVER shifts position */}
+                <div className="relative w-28 h-28 sm:w-32 sm:h-32">
+                  {/* Normal State */}
+                  <img
+                    src="/assets/aistudio/marianne_normal_transparent.png"
+                    alt="Marianne Tabarez Avatar Normal"
+                    className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                      showHappyAvatar ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                    }`}
+                    draggable={false}
+                  />
+
+                  {/* Happy State */}
+                  <img
+                    src="/assets/aistudio/marianne_happy_transparent.png"
+                    alt="Marianne Tabarez Avatar Feliz"
+                    className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                      showHappyAvatar ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    }`}
+                    draggable={false}
+                  />
+
+                  {/* Joyful Sparkle badge when happy */}
+                  {showHappyAvatar && (
+                    <span className="absolute -top-1 -right-1 text-[#8ee000] text-lg font-black animate-spin">
+                      ✦
+                    </span>
+                  )}
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-base sm:text-lg text-white/80 max-w-lg mt-4">
+            {isLatam
+              ? 'Disponible para roles de diseño de producto, sistemas de diseño enterprise y colaboraciones globales.'
+              : 'Available for product design roles, enterprise design systems, and select global engagements.'}
+          </p>
         </div>
 
         {/* Striking Interactive Contact Form (Takes full available width) */}
@@ -237,12 +192,12 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
         <div className="py-14 sm:py-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 border-b border-white/15">
           {/* Col 1: Direct Email & Phone */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
+            <span className="text-xs font-semibold text-white/60 block mb-2">
               {t.footer.directContact}
             </span>
             <a
               href="mailto:say-hi@mtabarez.com"
-              className="text-lg sm:text-xl font-bold text-white hover:text-[#D4FF32] transition-colors flex items-center gap-1.5"
+              className="text-lg sm:text-xl font-bold text-white hover:text-[#4ade26] transition-colors flex items-center gap-1.5"
             >
               <span>say-hi@mtabarez.com</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -256,9 +211,9 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
             </a>
           </div>
 
-          {/* Col 2: Social & Profiles */}
+          {/* Col 2: Social & Profiles ("También estoy en") */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
+            <span className="text-xs font-semibold text-white/60 block mb-2">
               {t.footer.profiles}
             </span>
             <div className="space-y-2.5 text-sm font-semibold">
@@ -288,22 +243,22 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
               </div>
               <div>
                 <a
-                  href="https://behance.net/mtabarez"
+                  href="https://behance.net/tabarez"
                   target="_blank"
                   rel="noreferrer"
                   className="text-white/90 hover:text-white flex items-center gap-2 transition-colors"
                 >
                   <span className="w-4 h-4 rounded-full bg-blue-500/20 text-blue-400 font-black text-[10px] flex items-center justify-center shrink-0">Bē</span>
-                  <span>Behance / mtabarez</span>
+                  <span>Behance / tabarez</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Col 3: Location & Bases */}
+          {/* Col 3: Location */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
+            <span className="text-xs font-semibold text-white/60 block mb-2">
               {t.footer.locationHeading}
             </span>
             <div className="text-sm font-semibold text-white/90">
@@ -314,15 +269,15 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
             </div>
           </div>
 
-          {/* Col 4: CV */}
+          {/* Col 4: Professional Profile & CV (High-Contrast Link) */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-white/50 block mb-2">
+            <span className="text-xs font-semibold text-white/60 block mb-2">
               {t.footer.docsHeading}
             </span>
             <div className="space-y-2">
               <button
                 onClick={onOpenCV}
-                className="text-sm font-bold text-[#D4FF32] hover:underline flex items-center gap-1 cursor-pointer"
+                className="text-sm font-bold text-[#8ee000] hover:text-[#aaff33] underline underline-offset-4 flex items-center gap-1.5 cursor-pointer"
               >
                 <FileText className="w-4 h-4" />
                 <span>{t.footer.viewCV}</span>
@@ -331,14 +286,14 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-white/60">
-          <div>
+        {/* Bottom bar: 100% responsive on mobile and desktop */}
+        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-white/60 w-full text-center sm:text-left">
+          <div className="w-full sm:w-auto">
             <span>{t.footer.copyright}</span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
+          <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-end gap-3 sm:gap-6 w-full sm:w-auto">
+            <span className="flex items-center justify-center gap-1.5 w-full sm:w-auto">
               <span>{t.footer.crafted}</span>
               <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline-block shrink-0" aria-hidden="true" />
               <span>· Marianne Tabarez</span>
@@ -346,7 +301,7 @@ export const Footer: React.FC<FooterProps> = ({ mode, onOpenCV }) => {
 
             <button
               onClick={scrollToTop}
-              className="hover:text-white flex items-center gap-1 font-bold cursor-pointer"
+              className="hover:text-white flex items-center justify-center gap-1 font-bold cursor-pointer transition-colors w-full sm:w-auto"
             >
               <span>{t.footer.backToTop}</span>
               <ArrowUp className="w-3.5 h-3.5" />

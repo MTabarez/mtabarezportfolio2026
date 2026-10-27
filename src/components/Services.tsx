@@ -38,26 +38,37 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
     return (
       <div
         key={service.id}
-        onClick={() => toggleFlip(service.id)}
-        className="[perspective:1000px] h-full min-h-[200px] sm:min-h-[380px] cursor-pointer group"
+        onClick={() => {
+          if (typeof window !== 'undefined' && window.innerWidth < 640) {
+            toggleFlip(service.id);
+          } else {
+            setSelectedService(service);
+          }
+        }}
+        className="[perspective:1000px] h-full min-h-[200px] sm:min-h-[400px] cursor-pointer group"
         role="button"
         tabIndex={0}
-        aria-label={`${title} - ${isFlipped ? 'Click to flip back' : 'Click to flip and see details'}`}
+        aria-label={`${title} - ${isFlipped ? 'Click to flip back' : 'Click to see details'}`}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            toggleFlip(service.id);
+            if (typeof window !== 'undefined' && window.innerWidth < 640) {
+              toggleFlip(service.id);
+            } else {
+              setSelectedService(service);
+            }
           }
         }}
       >
         <div
           className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-[24px] sm:rounded-[32px] ${
-            isFlipped ? '[transform:rotateY(180deg)]' : ''
+            isFlipped ? '[transform:rotateY(180deg)] sm:[transform:none]' : ''
           }`}
         >
           {/* ==================================================== */}
           {/* FRONT OF THE CARD                                   */}
-          {/* Mobile: ONLY the title and the arrow (no scope text)*/}
+          {/* Desktop: Full content directly (no flip needed!)    */}
+          {/* Mobile: Clean title & arrow, flips to back on tap   */}
           {/* ==================================================== */}
           <div
             style={{
@@ -71,51 +82,24 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               <h3 className="text-base sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight">
                 {title}
               </h3>
-              {/* Desktop supplementary preview (hidden on mobile for clean "solo el título") */}
-              <p className="hidden sm:block mt-2 text-xs font-bold uppercase tracking-wider text-[#D4FF32]">
+
+              {/* Generous padding between Title and Subtitle with clean neutral color */}
+              <p className="hidden sm:block mt-5 sm:mt-6 text-sm font-semibold text-stone-300">
                 {tagline}
               </p>
-              <p className="hidden sm:block mt-4 text-sm leading-relaxed text-white/85 line-clamp-3">
+
+              {/* Generous padding before description */}
+              <p className="hidden sm:block mt-4 sm:mt-5 text-sm leading-relaxed text-white/85 line-clamp-3">
                 {description}
               </p>
-            </div>
 
-            {/* Front Bottom: Arrow ONLY ("la flecha en el frente, no 'ver entregables bla bla'") */}
-            <div className="pt-3 border-t border-white/15 flex items-center justify-end text-xs font-bold text-white">
-              <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-sm group-hover:translate-x-1 group-hover:bg-white/25 transition-all text-[#D4FF32]">
-                →
-              </span>
-            </div>
-          </div>
-
-          {/* ==================================================== */}
-          {/* BACK OF THE CARD                                    */}
-          {/* Flips on click and shows full details/info          */}
-          {/* ==================================================== */}
-          <div
-            style={{
-              backgroundColor: isLatam ? latamBg : '#141414',
-              color: '#FFFFFF',
-              borderColor: 'rgba(255, 255, 255, 0.25)',
-            }}
-            className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] p-5 sm:p-7 rounded-[24px] sm:rounded-[32px] border flex flex-col justify-between shadow-2xl overflow-y-auto select-none"
-          >
-            <div className="space-y-2 sm:space-y-3">
-              <div className="flex items-center justify-between pb-1 border-b border-white/15">
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#D4FF32]">
-                  {tagline}
-                </span>
-                <span className="text-xs text-white/60 hover:text-white">✕</span>
-              </div>
-              <p className="text-xs sm:text-sm leading-relaxed text-white/90">
-                {description}
-              </p>
+              {/* Desktop Skills Badges */}
               {skills && skills.length > 0 && (
-                <div className="pt-1 flex flex-wrap gap-1">
+                <div className="hidden sm:flex mt-6 flex-wrap gap-2">
                   {skills.slice(0, 3).map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-md bg-white/15 text-white/90 font-medium"
+                      className="text-xs px-2.5 py-1 rounded-full bg-white/10 text-white/90 font-medium"
                     >
                       {skill}
                     </span>
@@ -124,9 +108,48 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               )}
             </div>
 
-            <div className="pt-2 flex items-center justify-between text-[10px] sm:text-xs font-bold text-[#D4FF32]">
-              <span>{isLatam ? 'Toca para volver' : 'Tap to flip back'}</span>
-              <span>⟲</span>
+            {/* Front Bottom: Arrow indicator */}
+            <div className="pt-4 flex items-center justify-end text-xs font-bold text-white">
+              <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-sm group-hover:translate-x-1 group-hover:bg-white/25 transition-all text-[#8ee000]">
+                →
+              </span>
+            </div>
+          </div>
+
+          {/* ==================================================== */}
+          {/* BACK OF THE CARD: ONLY active on Mobile              */}
+          {/* Flips on mobile tap to show scope details            */}
+          {/* ==================================================== */}
+          <div
+            style={{
+              backgroundColor: isLatam ? latamBg : '#141414',
+              color: '#FFFFFF',
+              borderColor: 'rgba(255, 255, 255, 0.25)',
+            }}
+            className="sm:hidden absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] p-5 rounded-[24px] border flex flex-col justify-between shadow-2xl overflow-y-auto select-none"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between pb-1">
+                <span className="text-xs font-semibold text-stone-300">
+                  {tagline}
+                </span>
+                <span className="text-xs text-white/60">✕</span>
+              </div>
+              <p className="text-xs leading-relaxed text-white/90">
+                {description}
+              </p>
+              {skills && skills.length > 0 && (
+                <div className="pt-1 flex flex-wrap gap-1">
+                  {skills.slice(0, 3).map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="text-[10px] px-2 py-0.5 rounded-md bg-white/15 text-white/90 font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -184,7 +207,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
                 width="360"
                 height="360"
                 rx="24"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="2"
                 strokeDasharray="1440"
                 style={{
@@ -223,7 +246,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               />
               <path
                 d="M 50 280 C 120 180, 200 320, 350 140"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeDasharray="480"
@@ -252,7 +275,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
                 cx="50"
                 cy="280"
                 r="4"
-                fill="#D4FF32"
+                fill="#4ade26"
                 style={{
                   transform: hoveredPhoto1 ? 'scale(1)' : 'scale(0)',
                   transition: 'transform 300ms ease 400ms',
@@ -262,7 +285,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
                 cx="350"
                 cy="140"
                 r="4"
-                fill="#D4FF32"
+                fill="#4ade26"
                 style={{
                   transform: hoveredPhoto1 ? 'scale(1)' : 'scale(0)',
                   transition: 'transform 300ms ease 500ms',
@@ -320,7 +343,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
                 cx="200"
                 cy="200"
                 r="70"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="2"
                 strokeDasharray="440"
                 style={{
@@ -359,7 +382,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               />
               <path
                 d="M 60 90 L 60 60 L 90 60"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="3"
                 strokeDasharray="60"
                 style={{
@@ -370,7 +393,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               />
               <path
                 d="M 310 60 L 340 60 L 340 90"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="3"
                 strokeDasharray="60"
                 style={{
@@ -381,7 +404,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               />
               <path
                 d="M 60 310 L 60 340 L 90 340"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="3"
                 strokeDasharray="60"
                 style={{
@@ -392,7 +415,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
               />
               <path
                 d="M 310 340 L 340 340 L 340 310"
-                stroke="#D4FF32"
+                stroke="#4ade26"
                 strokeWidth="3"
                 strokeDasharray="60"
                 style={{
@@ -405,7 +428,7 @@ export const Services: React.FC<ServicesProps> = ({ mode, onContactClick }) => {
                 cx="200"
                 cy="200"
                 r="6"
-                fill="#D4FF32"
+                fill="#4ade26"
                 style={{
                   transform: hoveredPhoto2 ? 'scale(1)' : 'scale(0)',
                   transition: 'transform 300ms ease 400ms',

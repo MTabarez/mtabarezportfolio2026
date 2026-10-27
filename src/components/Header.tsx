@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SiteMode } from '../types';
 import { Sliders, Menu } from 'lucide-react';
 import { BritishFlagIcon, LatamIcon } from './ModeIcons';
@@ -17,10 +17,45 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAccessibility,
   onOpenMenu,
 }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const t = getTranslation(activeMode);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
+      // Detect current section on scroll
+      const sections = ['contact', 'about', 'services', 'work'];
+      const scrollPos = window.scrollY + 200;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { id: 'work', label: t.nav.work },
+    { id: 'services', label: t.nav.services },
+    { id: 'about', label: t.nav.about },
+    { id: 'contact', label: t.nav.contact },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[var(--nav-bg)] border-b border-[var(--card-border)] transition-colors duration-300">
+    <header
+      className={`z-40 transition-all duration-300 ${
+        isScrolled
+          ? 'fixed top-3 inset-x-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[92%] md:max-w-[920px] rounded-full bg-[var(--bg-main)]/90 backdrop-blur-md shadow-md opacity-80 hover:opacity-100'
+          : 'sticky top-0 w-full bg-[var(--nav-bg)] opacity-100'
+      }`}
+    >
       {/* Skip-to-content accessibility link */}
       <a
         href="#main-content"
@@ -29,82 +64,86 @@ export const Header: React.FC<HeaderProps> = ({
         Skip to main content
       </a>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 py-3.5 sm:py-4 flex items-center justify-between gap-4">
-        {/* Zone 1: Brand Wordmark */}
+      <div
+        className={`mx-auto flex items-center justify-between gap-4 transition-all duration-300 ${
+          isScrolled
+            ? 'px-4 sm:px-6 py-2 sm:py-2.5'
+            : 'max-w-[1440px] px-4 sm:px-8 py-3.5 sm:py-4'
+        }`}
+      >
+        {/* Zone 1: Brand Wordmark (provisoriamente MT on scroll) */}
         <a
           href="#"
-          className="text-base sm:text-lg font-extrabold tracking-tight text-[var(--text-primary)] hover:opacity-80 transition-opacity whitespace-nowrap"
+          className="text-base sm:text-lg font-black tracking-tight text-[var(--text-primary)] hover:opacity-80 transition-all whitespace-nowrap"
         >
-          MARIANNE TABAREZ
+          {isScrolled ? (
+            <span className="w-8 h-8 rounded-full bg-[#9faf23] text-[#121212] flex items-center justify-center text-xs font-black tracking-wider shadow-sm">
+              MT
+            </span>
+          ) : (
+            'MARIANNE TABAREZ'
+          )}
         </a>
 
-        {/* Zone 2: Navigation Links (Bilingual) */}
+        {/* Zone 2: Navigation Links (UPPERCASE, Inverted Background ONLY on active section, NO border around items) */}
         <nav
           aria-label="Primary"
-          className="hidden md:flex items-center gap-8 text-sm font-semibold text-[var(--text-secondary)]"
+          className="hidden md:flex items-center gap-6"
         >
-          <a
-            href="#work"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            {t.nav.work}
-          </a>
-          <a
-            href="#services"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            {t.nav.services}
-          </a>
-          <a
-            href="#about"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            {t.nav.about}
-          </a>
-          <a
-            href="#contact"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            {t.nav.contact}
-          </a>
+          {navLinks.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`uppercase tracking-wider text-xs font-black transition-all duration-200 select-none ${
+                  isActive
+                    ? 'bg-[var(--text-primary)] text-[var(--bg-main)] rounded-full px-4 py-1.5 shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-1 py-1'
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Zone 3: Actions (Flag/Latam Mode Switch + Accessibility on desktop, single Menu Trigger on mobile) */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* INTERNACIONAL / LATAM Mode Switch (Desktop only; on mobile it resides inside the menu) */}
+          {/* INTL / LATAM Mode Switch (Desktop only, NO surrounding border) */}
           <div
             role="group"
             aria-label="Design system visual mode"
-            className="hidden md:flex p-1 rounded-full border border-[var(--card-border)] bg-[var(--card-surface)] items-center text-xs font-bold shadow-xs"
+            className="hidden md:flex p-1 rounded-full bg-[var(--card-surface)]/20 items-center text-xs font-bold shadow-xs"
           >
-            {/* Internacional (British Flag Icon) */}
+            {/* INTL (British Flag Icon) */}
             <button
               onClick={() => onToggleMode('international')}
               aria-pressed={activeMode === 'international'}
-              title="Internacional: English language, editorial contrast, restrained palette"
-              className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
+              title="INTL: English language, editorial contrast, restrained palette"
+              className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap uppercase tracking-wider font-extrabold ${
                 activeMode === 'international'
-                  ? 'bg-[#121212] text-white shadow-xs'
+                  ? 'bg-[#9faf23] text-[#121212] shadow-xs'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               <BritishFlagIcon className="w-4 h-2.5" />
-              <span>Internacional</span>
+              <span>INTL</span>
             </button>
 
             {/* LATAM (Stylized Latin America / Sol Icon) */}
             <button
               onClick={() => onToggleMode('latam')}
               aria-pressed={activeMode === 'latam'}
-              title="Latam: Idioma Español, paleta cálida latinoamericana, bloques de color sólido"
-              className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
+              title="LATAM: Idioma Español, paleta cálida latinoamericana, bloques de color sólido"
+              className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap uppercase tracking-wider font-extrabold ${
                 activeMode === 'latam'
-                  ? 'bg-[#0D5C46] text-[#F6D332] shadow-xs'
+                  ? 'bg-[#9faf23] text-[#121212] shadow-xs'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               <LatamIcon className="w-4 h-4" />
-              <span>Latam</span>
+              <span>LATAM</span>
             </button>
           </div>
 

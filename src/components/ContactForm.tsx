@@ -38,14 +38,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
   };
 
   return (
-    <div className="w-full my-12 p-8 sm:p-12 md:p-16 rounded-[36px] sm:rounded-[48px] bg-[#181818] text-[#F6F4EE] border border-white/15 shadow-2xl relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-[#2454FF]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#D4FF32]/12 rounded-full blur-3xl pointer-events-none" />
+    <div className="w-full my-12 p-8 sm:p-12 md:p-16 rounded-[36px] sm:rounded-[48px] bg-[#1a1a1a] text-[#F6F4EE] border border-white/10 shadow-2xl relative overflow-hidden">
+      {/* Background ambient destello flare glow with green tint */}
+      <div className="absolute -top-10 -right-10 w-96 h-96 bg-[#15812c]/25 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-[#2ed158]/15 rounded-full blur-3xl pointer-events-none" />
 
       {isSubmitted ? (
         <div className="py-16 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-full bg-[#D4FF32] text-black mx-auto flex items-center justify-center font-bold text-2xl shadow-xl">
+          <div className="w-16 h-16 rounded-full bg-[#15812c] text-white mx-auto flex items-center justify-center font-bold text-2xl shadow-xl">
             ✓
           </div>
           <h3 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
@@ -75,12 +75,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
       ) : (
         <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#D4FF32] animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4FF32]">
-                {t.form.kicker}
-              </span>
-            </div>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
               {t.form.title}
             </h3>
@@ -98,7 +92,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder={t.form.namePlaceholder}
-                className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#D4FF32] focus:ring-1 focus:ring-[#D4FF32] transition-colors"
+                className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#15812c] focus:ring-1 focus:ring-[#15812c] transition-colors"
               />
             </div>
 
@@ -112,7 +106,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder={t.form.emailPlaceholder}
-                className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#D4FF32] focus:ring-1 focus:ring-[#D4FF32] transition-colors"
+                className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#15812c] focus:ring-1 focus:ring-[#15812c] transition-colors"
               />
             </div>
           </div>
@@ -132,7 +126,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
                     onClick={() => setFormData({ ...formData, projectType: type })}
                     className={`px-4 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#D4FF32] text-[#121212] shadow-md scale-[1.02]'
+                        ? 'bg-[#15812c] text-white shadow-md scale-[1.02]'
                         : 'bg-white/5 text-white/80 border border-white/15 hover:border-white/40'
                     }`}
                   >
@@ -180,7 +174,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder={t.form.messagePlaceholder}
-              className="w-full p-5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#D4FF32] focus:ring-1 focus:ring-[#D4FF32] transition-colors resize-none"
+              className="w-full p-5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/30 text-sm font-semibold focus:outline-none focus:border-[#15812c] focus:ring-1 focus:ring-[#15812c] transition-colors resize-none"
             />
           </div>
 
@@ -188,7 +182,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ mode }) => {
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <MagneticPillButton
               type="submit"
-              variant={mode === 'latam' ? 'latam' : 'accent'}
+              variant={mode === 'latam' ? 'latam' : 'primary'}
               size="lg"
             >
               {isSending ? t.form.sendingBtn : t.form.submitBtn}
